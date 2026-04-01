@@ -1,0 +1,211 @@
+Upgrade the Gab Digital website admin panel to support real image uploading, storage, preview, and persistence.
+
+GOAL:
+I want all image uploads in the admin panel to be stored permanently, not just previewed temporarily.
+The admin should be able to upload an image from the local device, preview it before saving, and then store it in cloud storage so it remains available after refresh and can be used across the website.
+
+STORAGE SOLUTION:
+Use Supabase Storage for permanent image uploads.
+
+TECH STACK:
+- React
+- Tailwind CSS
+- Supabase
+- Reusable upload components
+- Clean modular code
+
+IMPORTANT:
+Replace image URL-only workflows with real upload workflows.
+Keep image URL input optional only if needed, but the main workflow must be file upload + storage.
+
+APPLY TO ALL RELEVANT ADMIN SECTIONS:
+- Portfolio projects
+- Digital products
+- Courses
+- Services
+- Testimonials
+- Site settings / branding images / hero images if present
+
+REQUIRED FEATURES:
+1. Upload image from local device
+2. Live preview before save
+3. Save image permanently to Supabase Storage
+4. Store the returned public image URL in the related item record
+5. Display uploaded image in admin forms and public website
+6. Allow replacing an existing image
+7. Allow deleting/removing an uploaded image
+8. Validate file type
+9. Validate file size
+10. Show upload progress or loading state
+11. Show success/error toast messages
+
+SUPABASE REQUIREMENTS:
+- Configure Supabase client properly
+- Create a storage bucket for website/admin uploads
+- Use organized folders inside the bucket, for example:
+  - portfolio/
+  - products/
+  - courses/
+  - services/
+  - testimonials/
+  - settings/
+- Generate unique file names to avoid collisions
+- Save public URLs after upload
+- If an old image is replaced, optionally delete the old file from storage if possible
+
+DATA MODEL:
+Each saved item should store fields like:
+- imageUrl
+- imagePath (optional, useful for future delete/update handling)
+- imageAlt (optional)
+
+UPLOAD COMPONENT:
+Create a reusable component like:
+ImageUploadField
+
+It should support:
+- label
+- current image preview
+- new file preview
+- upload button
+- replace button
+- remove button
+- helper text
+- loading state
+- validation state
+
+UI / UX:
+- Beautiful modern upload area
+- Dashed border drag-and-drop style box
+- Click to upload
+- Thumbnail preview card
+- Remove / Replace actions
+- Smooth transitions
+- Premium admin style matching Gab Digital
+- Responsive on desktop and mobile
+
+FORM FLOW:
+When admin selects an image:
+- immediately preview it in the form
+- do not save yet until the form is submitted
+
+When admin clicks Save:
+- upload image to Supabase Storage
+- get the public URL
+- save that URL in the item data
+- persist the item in the database or current storage layer
+
+DATABASE / PERSISTENCE:
+If the project already has Supabase database tables, update them to include image fields.
+If not, create a clean persistence structure.
+
+Suggested fields:
+For portfolio:
+- title
+- category
+- shortDescription
+- fullDescription
+- imageUrl
+- imagePath
+- demoUrl
+- featured
+
+For products:
+- name
+- category
+- shortDescription
+- fullDescription
+- imageUrl
+- imagePath
+- price
+- featured
+
+For courses:
+- title
+- shortDescription
+- fullDescription
+- imageUrl
+- imagePath
+- level
+- duration
+- price
+- featured
+
+For services:
+- title
+- category
+- shortDescription
+- fullDescription
+- imageUrl
+- imagePath
+- featured
+
+For testimonials:
+- clientName
+- businessName
+- testimonialText
+- clientImageUrl
+- clientImagePath
+- rating
+
+ADMIN BEHAVIOR:
+- When editing an existing item, show current uploaded image
+- Admin can keep current image, replace it, or remove it
+- If replaced, upload the new image and update the stored URL
+- If removed, clear the image fields
+
+PUBLIC WEBSITE:
+Make sure the public pages display the stored uploaded images correctly for:
+- portfolio cards
+- products
+- courses
+- services
+- testimonials
+- hero/settings images if used
+
+VALIDATION:
+- Accept only image files
+- Allowed formats: jpg, jpeg, png, webp
+- Add max file size validation
+- Show friendly error messages
+
+ERROR HANDLING:
+- Handle failed uploads gracefully
+- Show toast notifications for:
+  - upload success
+  - upload failure
+  - save success
+  - delete success
+
+ENVIRONMENT VARIABLES:
+Set up environment variables for Supabase:
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY
+
+Also create clear setup instructions in the code comments or README for:
+1. creating the Supabase project
+2. creating the storage bucket
+3. setting bucket policies if needed
+4. adding environment variables in Replit
+
+OPTIONAL NICE TOUCHES:
+- drag and drop upload
+- image compression before upload if easy
+- loading spinner during upload
+- file size display
+- image alt text input
+- fallback placeholder image
+
+IMPORTANT:
+Build this as a real permanent storage solution, not temporary object URL only.
+The uploaded image must remain available after page refresh and must be stored in Supabase Storage.
+
+DELIVERABLE:
+Return the updated codebase with:
+- working image upload
+- live preview
+- permanent Supabase Storage integration
+- saved image URLs in records
+- reusable upload component
+- clean admin UX
+- public website showing the uploaded images properly
