@@ -9,6 +9,8 @@ import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
+import ServiceCategoryPage from "@/pages/ServiceCategoryPage";
+import ServiceDetailPage from "@/pages/ServiceDetailPage";
 import OurWork from "@/pages/OurWork";
 import DigitalProducts from "@/pages/DigitalProducts";
 import Academy from "@/pages/Academy";
@@ -18,6 +20,7 @@ import Contact from "@/pages/Contact";
 
 import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
+import AdminServiceCategories from "@/pages/admin/AdminServiceCategories";
 import AdminServices from "@/pages/admin/AdminServices";
 import AdminPortfolio from "@/pages/admin/AdminPortfolio";
 import AdminProducts from "@/pages/admin/AdminProducts";
@@ -35,6 +38,8 @@ function PublicRouter() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={Services} />
+      <Route path="/services/:categorySlug/:serviceSlug" component={ServiceDetailPage} />
+      <Route path="/services/:categorySlug" component={ServiceCategoryPage} />
       <Route path="/our-work" component={OurWork} />
       <Route path="/digital-products" component={DigitalProducts} />
       <Route path="/academy" component={Academy} />
@@ -51,6 +56,7 @@ function AdminRouter() {
     <Switch>
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin" component={AdminDashboard} />
+      <Route path="/admin/service-categories" component={AdminServiceCategories} />
       <Route path="/admin/services" component={AdminServices} />
       <Route path="/admin/portfolio" component={AdminPortfolio} />
       <Route path="/admin/products" component={AdminProducts} />

@@ -4,7 +4,7 @@ import {
   ArrowLeft, Star, TrendingUp, Users, Award,
   Quote, Zap, ShieldCheck, BarChart2, HeartHandshake
 } from "lucide-react";
-import { useServices, useTestimonials } from "@/hooks/useSiteData";
+import { useServiceCategories, useTestimonials } from "@/hooks/useSiteData";
 import { getIcon, getPalette } from "@/lib/palette";
 
 const fadeUp = (delay = 0) => ({
@@ -30,8 +30,8 @@ const whyUs = [
 ];
 
 export default function Home() {
-  const allServices = useServices();
-  const services = allServices.slice(0, 6);
+  const allCategories = useServiceCategories();
+  const services = allCategories.slice(0, 6);
   const allTestimonials = useTestimonials();
   const testimonials = allTestimonials.map(t => ({
     name: t.clientName,
@@ -183,20 +183,27 @@ export default function Home() {
                   <div className={`relative h-28 bg-gradient-to-br ${palette.gradient} flex items-center justify-between px-6 overflow-hidden`}>
                     <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full blur-2xl opacity-50" style={{ background: palette.glow }} />
                     <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "16px 16px" }} />
+                    {service.imageUrl && (
+                      <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${service.imageUrl})` }} />
+                    )}
                     <div className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg"
                       style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.25)" }}>
                       <Icon size={30} color="white" />
                     </div>
-                    <span className="relative z-10 text-xs font-bold text-white/60 tracking-wider">{service.category}</span>
+                    {service.isFeatured && (
+                      <span className="relative z-10 text-xs font-bold text-yellow-300 flex items-center gap-1">
+                        <Star size={10} fill="currentColor" /> مميز
+                      </span>
+                    )}
                   </div>
 
                   {/* content */}
                   <div className="p-6">
                     <h3 className="text-xl font-black text-slate-900 mb-2">{service.title}</h3>
                     <p className="text-slate-500 text-sm leading-relaxed mb-5">{service.shortDescription}</p>
-                    <Link href="/services">
+                    <Link href={`/services/${service.slug}`}>
                       <span className="inline-flex items-center gap-1.5 text-orange-500 font-bold text-sm group-hover:gap-3 transition-all cursor-pointer">
-                        اكتشف المزيد
+                        معرفة المزيد
                         <ArrowLeft size={15} />
                       </span>
                     </Link>

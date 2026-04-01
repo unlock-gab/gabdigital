@@ -91,6 +91,66 @@ Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used b
 
 Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
 
+### `artifacts/gab-digital` (`@workspace/gab-digital`)
+
+Premium Arabic-language (RTL) digital marketing agency website for **GAB Digital** (Algeria).
+
+- **Stack**: React + Vite + TypeScript + Tailwind CSS + shadcn/ui
+- **Language**: Arabic only — `lang="ar" dir="rtl"` on `<html>`. Brand name "GAB Digital" always in `dir="ltr"`.
+- **Font**: Cairo Google Fonts — `@import` first line in `index.css`
+- **Data layer**: `localStorage` as CMS — admin writes → public site reads in real-time (no backend required)
+- **Admin credentials**: admin@gabdigital.com / admin123 (localStorage auth)
+- **Branding**: Dark navy (`#0B1120`) + Orange (`#F97316`) palette
+- **Instagram**: https://www.instagram.com/digital.gab16
+
+#### Public Pages (8 pages)
+| Path | Page |
+|------|------|
+| `/` | الرئيسية (Home) |
+| `/services` | الخدمات — category grid |
+| `/services/:categorySlug` | ServiceCategoryPage — services within a category |
+| `/services/:categorySlug/:serviceSlug` | ServiceDetailPage — single service detail |
+| `/our-work` | أعمالنا (Portfolio) |
+| `/products` | المنتجات الرقمية |
+| `/academy` | الأكاديمية |
+| `/contact` | تواصل معنا |
+| `/about` | من نحن |
+
+#### Admin Pages (at `/admin`)
+| Path | Feature |
+|------|---------|
+| `/admin` | Dashboard — live stats from localStorage |
+| `/admin/service-categories` | CRUD for ServiceCategory (with image upload) |
+| `/admin/services` | CRUD for ServiceItem (with category selector, image upload) |
+| `/admin/portfolio` | CRUD for Portfolio projects |
+| `/admin/products` | CRUD for digital products |
+| `/admin/courses` | CRUD for academy courses |
+| `/admin/testimonials` | CRUD for testimonials |
+| `/admin/messages` | View contact messages |
+| `/admin/faq` | CRUD for FAQ items |
+| `/admin/project-requests` | View project requests |
+
+#### Services Architecture (3-level hierarchy)
+```
+ServiceCategory  (admin_service_categories key)
+  └── ServiceItem[] per category  (admin_service_items key)
+        └── Detail page per item
+```
+- **`ServiceCategory`**: id, title, slug, description, icon, imageUrl, isFeatured, order
+- **`ServiceItem`**: id, categoryId, title, slug, description, longDescription, imageUrl, price, features[], includedItems[], targetAudience[], isVisible, isFeatured, order
+- Slugs auto-generated via `slugify()`, manually editable
+- Images stored as base64 (max 2MB) in `imageUrl` field
+- `useServices()` is **REMOVED** — use `useServiceCategories()` and `useServiceItems()`
+- Old `admin_services` localStorage key is **DEPRECATED**
+
+#### Key Files
+- `src/lib/adminData.ts` — all interfaces + mock data (ServiceCategory x6, ServiceItem x10 + legacy types)
+- `src/hooks/useSiteData.ts` — all `useLocalStorage` hooks for public data reading
+- `src/hooks/useLocalStorage.ts` — generic typed localStorage hook
+- `src/lib/palette.ts` — `getIcon()`, `getPalette()`, `getAccent()`, `parseFeatures()` helpers
+- `src/components/admin/AdminLayout.tsx` — admin shell
+- `src/components/admin/AdminSidebar.tsx` — admin nav with all sections
+
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.

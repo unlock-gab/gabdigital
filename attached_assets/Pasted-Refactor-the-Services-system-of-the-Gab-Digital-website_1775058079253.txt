@@ -1,0 +1,269 @@
+Refactor the Services system of the Gab Digital website into a real category-based structure controlled from the admin panel.
+
+IMPORTANT:
+I want the services section to be organized by categories, and each category should contain multiple services.
+
+MAIN GOAL:
+Transform the current service display into this structure:
+
+- Service Categories
+- Each category contains multiple services
+- Public website users can click “معرفة المزيد” to open the category page
+- Inside the category page, users can view all services under that category
+- Then click a specific service to open its detailed page
+
+I also want image support for categories and services.
+
+====================================
+PUBLIC WEBSITE STRUCTURE
+====================================
+
+1) SERVICES PAGE
+The main Services page should show service categories only, not just isolated services.
+
+Each category card/block should include:
+- category name
+- short description
+- category image
+- optional icon
+- button text changed from:
+  "اطلب هذه الخدمة"
+  to:
+  "معرفة المزيد"
+
+When the user clicks "معرفة المزيد":
+- navigate to a category details page
+
+2) CATEGORY DETAILS PAGE
+Create a dynamic page for each category, for example:
+- /services/social-media-content
+- /services/web-ecommerce
+- /services/ads-performance
+- /services/digital-marketing
+etc.
+
+This page must display:
+- category title
+- category image / hero image
+- category full description
+- optional intro text
+- all services inside this category
+- each service shown as a card or structured block
+
+Each service item inside the category page should include:
+- service name
+- short summary
+- optional image/icon
+- button like:
+  "عرض الخدمة"
+  or
+  "معرفة المزيد"
+
+3) SINGLE SERVICE DETAILS PAGE
+Create a dynamic page for each individual service, for example:
+- /services/social-media-content/page-management
+- /services/social-media-content/content-creation
+- /services/web-ecommerce/ecommerce-store
+etc.
+
+This page should include:
+- service title
+- service image
+- detailed service description
+- list of features
+- what is included
+- who this service is for
+- optional process steps
+- CTA button like:
+  - اطلب هذه الخدمة
+  - ابدأ مشروعك
+  - تواصل معنا
+
+====================================
+ADMIN PANEL REQUIREMENTS
+====================================
+
+I want to fully manage categories and services from admin.
+
+Create real admin control for:
+
+1) SERVICE CATEGORIES MANAGEMENT
+Admin must be able to:
+- add category
+- edit category
+- delete category
+- upload category image
+- set category title
+- set category slug
+- short description
+- full description
+- icon (optional)
+- display order
+- show/hide category
+- featured or not (optional)
+
+Fields for category:
+- title
+- slug
+- shortDescription
+- fullDescription
+- imageUrl
+- imagePath
+- icon (optional)
+- order
+- isVisible
+- isFeatured
+
+2) SERVICES MANAGEMENT
+Each service must belong to a category.
+
+Admin must be able to:
+- add service
+- edit service
+- delete service
+- assign service to a category
+- upload service image
+- set title
+- slug
+- short description
+- full description
+- features list
+- included items list
+- target audience / who it is for
+- order
+- visibility
+- featured flag (optional)
+
+Fields for service:
+- categoryId
+- title
+- slug
+- shortDescription
+- fullDescription
+- imageUrl
+- imagePath
+- features[]
+- includedItems[]
+- targetAudience
+- order
+- isVisible
+- isFeatured
+
+IMPORTANT:
+The admin must choose which category the service belongs to.
+This relationship must be real and reflected on the public website.
+
+====================================
+IMAGE SUPPORT
+====================================
+
+Add image support for both:
+- category image
+- service image
+
+Requirements:
+- upload image from local device
+- preview before save
+- store permanently
+- display on public site
+- display in admin edit forms
+
+If Supabase Storage is already used, continue using it.
+If not, integrate real persistent image storage properly.
+
+====================================
+BUTTON CHANGE
+====================================
+
+Change the button text on category cards from:
+"اطلب هذه الخدمة"
+to:
+"معرفة المزيد"
+
+Behavior:
+- this button should open the category details page, not direct order flow
+
+On the single service detail page, you may still use:
+- اطلب هذه الخدمة
+or
+- ابدأ مشروعك
+
+====================================
+DATA FLOW
+====================================
+
+Very important:
+The admin panel must be the real source of truth.
+
+This means:
+- categories shown on public services page must come from admin/database
+- services shown inside category pages must come from admin/database
+- service detail pages must come from admin/database
+
+No hardcoded services.
+No fake static categories.
+No mock fallback.
+
+If I add a category in admin, it should appear on the public services page.
+If I add a service under that category, it should appear inside that category page.
+If I remove it, it should disappear.
+
+====================================
+ROUTES TO CREATE
+====================================
+
+Public routes:
+- /services
+- /services/:categorySlug
+- /services/:categorySlug/:serviceSlug
+
+Admin routes:
+- /admin/service-categories
+- /admin/services
+
+====================================
+UI / UX REQUIREMENTS
+====================================
+
+Public website:
+- premium modern design
+- category cards with image + title + short description
+- clean navigation flow
+- nice breadcrumbs on category/service pages
+- beautiful Arabic RTL layout
+- smooth animations
+- hover effects
+- visually polished service/category presentation
+
+Admin:
+- clean forms
+- category selector when creating a service
+- image upload field with preview
+- structured inputs for features and included items
+- reorder support if possible
+- easy edit/delete actions
+
+====================================
+OPTIONAL NICE TOUCHES
+====================================
+
+- Add breadcrumb navigation:
+  الرئيسية > الخدمات > الكاتيجوري > الخدمة
+- Add related services section on service detail page
+- Add “other categories” section on category page
+- Add featured categories on main services page
+- Add featured services inside category page
+
+====================================
+DELIVERABLE
+====================================
+
+Refactor the full services system into:
+- category-based architecture
+- admin-managed categories
+- admin-managed services inside categories
+- category pages
+- single service detail pages
+- image support
+- changed button text to "معرفة المزيد"
+- real database-driven structure with admin controlling everything

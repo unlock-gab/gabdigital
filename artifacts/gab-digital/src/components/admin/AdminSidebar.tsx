@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import {
   LayoutDashboard,
+  Layers,
   Briefcase,
   Image as ImageIcon,
   ShoppingBag,
@@ -19,7 +20,8 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
-  { label: "Services", path: "/admin/services", icon: Briefcase },
+  { label: "تصنيفات الخدمات", path: "/admin/service-categories", icon: Layers },
+  { label: "الخدمات", path: "/admin/services", icon: Briefcase },
   { label: "Portfolio", path: "/admin/portfolio", icon: ImageIcon },
   { label: "Products", path: "/admin/products", icon: ShoppingBag },
   { label: "Courses", path: "/admin/courses", icon: GraduationCap },
@@ -40,14 +42,13 @@ export function AdminSidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen
 
   return (
     <>
-      {/* Mobile overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
-      
+
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform transition-transform duration-200 ease-in-out lg:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col`}>
         <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
           <Link href="/admin">
@@ -78,8 +79,8 @@ export function AdminSidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen
         </div>
 
         <div className="p-4 border-t border-slate-800">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="w-full justify-start text-slate-400 hover:text-white hover:bg-slate-800"
             onClick={handleLogout}
           >

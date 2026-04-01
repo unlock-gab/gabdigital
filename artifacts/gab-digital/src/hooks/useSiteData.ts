@@ -1,14 +1,26 @@
 import { useLocalStorage } from "./useLocalStorage";
 import {
-  mockServices, mockPortfolio, mockProducts, mockCourses,
+  mockPortfolio, mockProducts, mockCourses,
   mockTestimonials, mockFAQs,
-  type Service, type PortfolioProject, type Product,
-  type Course, type Testimonial, type FAQ
+  mockServiceCategories, mockServiceItems,
+  type PortfolioProject, type Product,
+  type Course, type Testimonial, type FAQ,
+  type ServiceCategory, type ServiceItem,
 } from "@/lib/adminData";
 
-export function useServices(): Service[] {
-  const [data] = useLocalStorage<Service[]>("admin_services", mockServices);
-  return [...data].sort((a, b) => a.displayOrder - b.displayOrder);
+export function useServiceCategories(): ServiceCategory[] {
+  const [data] = useLocalStorage<ServiceCategory[]>("admin_service_categories", mockServiceCategories);
+  return [...data].filter(c => c.isVisible).sort((a, b) => a.order - b.order);
+}
+
+export function useServiceItems(): ServiceItem[] {
+  const [data] = useLocalStorage<ServiceItem[]>("admin_service_items", mockServiceItems);
+  return [...data].filter(s => s.isVisible).sort((a, b) => a.order - b.order);
+}
+
+export function useServiceItemsByCategory(categoryId: number): ServiceItem[] {
+  const items = useServiceItems();
+  return items.filter(s => s.categoryId === categoryId);
 }
 
 export function usePortfolio(): PortfolioProject[] {
