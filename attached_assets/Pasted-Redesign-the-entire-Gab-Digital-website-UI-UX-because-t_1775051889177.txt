@@ -1,0 +1,192 @@
+Redesign the entire Gab Digital website UI/UX because the current style feels too dark, too flat, visually heavy, and not premium enough.
+
+IMPORTANT:
+The current design is not visually attractive.
+Problems to fix:
+- colors feel dull and muddy
+- too much dark navy everywhere
+- weak contrast between sections
+- layout feels flat and repetitive
+- service cards are not premium enough
+- typography hierarchy is weak
+- sections need more breathing room
+- the Services page especially looks unattractive and poorly structured
+
+GOAL:
+Transform the website into a premium, modern, visually impressive digital agency website with beautiful colors, strong contrast, excellent spacing, elegant cards, and better visual hierarchy.
+
+NEW DESIGN DIRECTION:
+Use a much more refined and modern design system.
+
+STYLE:
+- premium
+- elegant
+- modern
+- clean
+- high-converting
+- agency-style
+- visually rich but not cluttered
+- more luxury and polished
+- better visual rhythm between sections
+
+COLOR PALETTE:
+Replace the current muddy/dark-heavy palette with a more beautiful and balanced one.
+
+Use this direction:
+- Primary background: soft off-white / very light gray for many sections
+- Dark sections only where needed for contrast
+- Primary accent: vibrant premium orange
+- Secondary color: deep navy
+- Optional subtle support tones: light blue-gray / soft beige / soft gradient glow
+- Text must be highly readable
+- Strong contrast between cards, sections, and buttons
+
+IMPORTANT:
+Do NOT make the entire site dark.
+Create alternating section backgrounds:
+- white / off-white sections
+- light tinted sections
+- dark hero or dark CTA sections only where useful
+
+TYPOGRAPHY:
+Improve typography significantly:
+- bigger hero headings
+- better line height
+- stronger section headings
+- cleaner Arabic readability
+- more elegant font pairing
+- improved font weight hierarchy
+
+SPACING / LAYOUT:
+- increase whitespace
+- improve section padding
+- improve alignment
+- create more premium breathing room
+- use a stronger grid system
+- make card layouts more balanced
+- avoid cramped sections
+
+NAVBAR:
+Redesign the navbar to look more premium:
+- cleaner spacing
+- better active link styling
+- better CTA button design
+- modern sticky effect
+- subtle blur or glass effect if tasteful
+- logo should feel more premium and balanced
+
+HOME PAGE:
+Completely redesign the homepage to feel high-end.
+
+Hero section should include:
+- stronger headline
+- premium layout
+- better button design
+- subtle background effects
+- optional abstract shapes or gradients
+- cleaner content width
+- modern animation
+- better composition
+
+Improve these homepage sections:
+- services overview
+- why choose us
+- featured work
+- digital products
+- academy preview
+- testimonials
+- final CTA
+
+Each section should feel distinct and visually intentional.
+
+SERVICES PAGE:
+This page needs major redesign.
+
+Current issue:
+It looks too plain, too dark, and not attractive.
+
+Redesign the Services page with:
+1. a premium hero section
+2. category-based layout
+3. better service cards
+4. alternating backgrounds
+5. visual icons or illustrations
+6. cleaner service detail layout
+7. better spacing between service blocks
+8. more engaging content presentation
+
+SERVICES PAGE LAYOUT IMPROVEMENTS:
+- top hero with strong title and subtitle
+- elegant intro area
+- service categories presented with premium cards or tabs
+- each service section should have:
+  - icon
+  - title
+  - description
+  - bullet list
+  - CTA
+- use modern 2-column or alternating layout
+- add subtle separators
+- use white cards or gradient cards on light background
+- include hover animations
+- avoid giant empty dark areas
+
+CARDS:
+Redesign all cards site-wide:
+- more premium backgrounds
+- softer shadows
+- better border radius
+- cleaner padding
+- nicer hover lift effect
+- stronger typography inside cards
+- icons should look more elegant
+- add subtle gradients or border glow where tasteful
+
+BUTTONS:
+Improve all buttons:
+- premium orange CTA buttons
+- better hover states
+- more polished size and padding
+- secondary button styles
+- stronger visual consistency
+
+ANIMATIONS:
+Keep animations smooth and premium:
+- fade-up on scroll
+- small lift on hover
+- subtle image zoom
+- gentle motion only
+- avoid excessive animation
+
+IMAGES / VISUAL ELEMENTS:
+If there are empty sections or placeholders, improve them with:
+- elegant icon containers
+- abstract visual shapes
+- better image framing
+- cleaner thumbnails
+- more visual balance
+
+ARABIC UI IMPROVEMENTS:
+- ensure RTL layout is polished
+- better Arabic spacing and text alignment
+- headings should feel bold and modern
+- body text should be easier to read
+- make Arabic typography feel premium, not generic
+
+SPECIFIC CHANGES I WANT:
+- make the site brighter and more premium
+- reduce visual heaviness
+- improve readability
+- make the Services page look much more beautiful
+- make the homepage look more impressive
+- create a more expensive / professional agency feel
+
+DO NOT:
+- keep the same dark-heavy design
+- keep flat generic cards
+- keep large empty spaces with no visual structure
+- keep the current weak hierarchy
+
+DELIVERABLE:
+Refactor the full website styling and layout to achieve a much more beautiful, modern, premium agency appearance, especially improving the homepage and services page.
+Keep the content structure, but redesign the visual system, sections, cards, spacing, colors, and overall presentation.

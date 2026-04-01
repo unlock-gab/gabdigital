@@ -147,3 +147,16 @@
     @apply font-display tracking-tight;
   }
 }
+
+.section-light {
+  background: #FFFFFF;
+  color: #1e293b;
+}
+.section-tinted {
+  background: #F8F9FC;
+  color: #1e293b;
+}
+.section-dark {
+  background: #0f172a;
+  color: #ffffff;
+}

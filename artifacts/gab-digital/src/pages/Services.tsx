@@ -57,22 +57,22 @@ export default function Services() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <div className="min-h-screen bg-slate-50 pb-20">
       {/* Hero */}
-      <section className="bg-card py-20 border-b border-border mb-16">
-        <div className="container mx-auto px-4 text-center">
+      <section className="bg-[#0f172a] py-32 pt-40 mb-16 text-white text-center">
+        <div className="container mx-auto px-4">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-6"
           >
-            خدمات <span className="text-primary">متكاملة</span> للنمو
+            خدمات <span className="text-orange-500">متكاملة</span> للنمو
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-xl text-slate-300 max-w-2xl mx-auto"
           >
             كل ما تحتاجه للنجاح في العالم الرقمي تحت سقف واحد. من الفكرة إلى التنفيذ والتسويق.
           </motion.p>
@@ -88,38 +88,36 @@ export default function Services() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              className={`flex flex-col lg:flex-row gap-12 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
+              className={`flex flex-col lg:flex-row gap-12 items-center bg-white rounded-2xl shadow-lg p-8 lg:p-12 border border-slate-100 hover:shadow-xl transition-shadow ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}
             >
               <div className="lg:w-1/2">
-                <div className="w-20 h-20 bg-primary/10 text-primary rounded-3xl flex items-center justify-center mb-8">
+                <div className="w-20 h-20 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center mb-8 shadow-sm">
                   {cat.icon}
                 </div>
-                <h2 className="text-3xl md:text-4xl font-black mb-4">{cat.title}</h2>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                <h2 className="text-3xl md:text-4xl font-black mb-4 text-slate-900">{cat.title}</h2>
+                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                   {cat.desc}
                 </p>
                 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {cat.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-primary shrink-0"></div>
-                      <span className="font-semibold">{feature}</span>
+                      <div className="w-2 h-2 rounded-full bg-orange-500 shrink-0"></div>
+                      <span className="font-semibold text-slate-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 
                 <Link href="/start-project">
-                  <Button className="font-bold rounded-full px-8 h-12" data-testid={`btn-request-${cat.id}`}>
+                  <Button className="font-bold rounded-full px-8 h-12 bg-orange-500 hover:bg-orange-600 text-white shadow-md border-0" data-testid={`btn-request-${cat.id}`}>
                     اطلب هذه الخدمة
                   </Button>
                 </Link>
               </div>
               
               <div className="lg:w-1/2 w-full">
-                <div className="aspect-[4/3] rounded-[2rem] bg-muted border border-border flex items-center justify-center overflow-hidden relative group">
-                   {/* Placeholder for service image */}
-                   <div className="absolute inset-0 bg-gradient-to-tr from-background to-muted"></div>
-                   <div className="relative z-10 text-muted-foreground/30 text-9xl">
+                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-orange-50 to-slate-100 border border-slate-100 flex items-center justify-center overflow-hidden relative shadow-inner">
+                   <div className="relative z-10 text-orange-500/20 text-9xl transform scale-150">
                      {cat.icon}
                    </div>
                 </div>
@@ -131,13 +129,13 @@ export default function Services() {
 
       {/* CTA */}
       <section className="container mx-auto px-4 mt-32">
-        <div className="bg-primary/5 border border-primary/20 rounded-[3rem] p-12 text-center max-w-4xl mx-auto">
+        <div className="bg-gradient-to-l from-orange-500 to-orange-600 rounded-[2rem] p-12 text-center max-w-4xl mx-auto text-white shadow-xl">
           <h2 className="text-3xl font-black mb-6">محتار من أين تبدأ؟</h2>
-          <p className="text-lg text-muted-foreground mb-8">
+          <p className="text-lg text-white/90 mb-8">
             احجز استشارة مجانية مع خبرائنا لنحدد معاً الخدمات الأنسب لمشروعك والتي ستحقق لك أفضل النتائج في أسرع وقت.
           </p>
           <Link href="/contact">
-            <Button size="lg" className="font-bold rounded-full px-8 h-14 text-lg">
+            <Button size="lg" className="font-bold rounded-full px-8 h-14 text-lg bg-white text-orange-600 hover:bg-slate-50 border-0 shadow-md">
               تواصل معنا للاستشارة
               <ArrowLeft className="mr-2" />
             </Button>

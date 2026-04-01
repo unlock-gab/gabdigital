@@ -70,11 +70,11 @@ export default function Academy() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-background">
+    <div className="min-h-screen bg-[#F8F9FC] pb-20">
       {/* Hero */}
-      <section className="bg-card py-20 border-b border-border mb-16 text-center">
+      <section className="bg-[#0f172a] py-32 pt-40 mb-16 text-center text-white">
         <div className="container mx-auto px-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 mb-6">
             <GraduationCap size={20} />
             <span className="text-sm font-bold">تعلم من خبراء السوق</span>
           </div>
@@ -83,27 +83,27 @@ export default function Academy() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-6"
           >
-            أكاديمية GAB — <span className="text-primary">أتقن المهارات الرقمية</span>
+            أكاديمية GAB — <span className="text-orange-500">أتقن المهارات الرقمية</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-xl text-slate-300 max-w-2xl mx-auto mb-10"
           >
             دورات تدريبية عملية ومكثفة مصممة لتأهيلك لسوق العمل أو لتطوير مهاراتك في تنمية مشروعك الخاص.
           </motion.p>
           <div className="flex flex-wrap justify-center gap-6">
-             <div className="flex items-center gap-2 text-muted-foreground font-semibold">
-                <Users className="text-primary" size={20} />
+             <div className="flex items-center gap-2 text-slate-300 font-semibold">
+                <Users className="text-orange-500" size={20} />
                 <span>+1000 طالب مسجل</span>
              </div>
-             <div className="flex items-center gap-2 text-muted-foreground font-semibold">
-                <MonitorPlay className="text-primary" size={20} />
+             <div className="flex items-center gap-2 text-slate-300 font-semibold">
+                <MonitorPlay className="text-orange-500" size={20} />
                 <span>+50 ساعة تدريبية</span>
              </div>
-             <div className="flex items-center gap-2 text-muted-foreground font-semibold">
-                <Trophy className="text-primary" size={20} />
+             <div className="flex items-center gap-2 text-slate-300 font-semibold">
+                <Trophy className="text-orange-500" size={20} />
                 <span>شهادات معتمدة</span>
              </div>
           </div>
@@ -113,17 +113,17 @@ export default function Academy() {
       <div className="container mx-auto px-4">
         {/* Learning Paths */}
         <div className="mb-24">
-           <h2 className="text-3xl font-black mb-10 text-center">مسارات التعلم <span className="text-primary">المقترحة</span></h2>
+           <h2 className="text-3xl font-black mb-10 text-center text-slate-900">مسارات التعلم <span className="text-orange-500">المقترحة</span></h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                 { title: "مدير التواصل الاجتماعي", desc: "تعلم صناعة المحتوى والتصميم الأساسي والإدارة.", color: "border-blue-500/30 bg-blue-500/5 text-blue-500" },
-                 { title: "مشتري الإعلانات (Media Buyer)", desc: "احتراف منصات الإعلانات وبناء مسارات التحويل.", color: "border-orange-500/30 bg-orange-500/5 text-orange-500" },
-                 { title: "المونتير التسويقي", desc: "ركز على مهارات إنتاج الفيديو الجذاب للمنصات.", color: "border-purple-500/30 bg-purple-500/5 text-purple-500" },
-                 { title: "المستقل المبتدئ", desc: "مهارات أساسية مع دليل البدء في العمل الحر.", color: "border-green-500/30 bg-green-500/5 text-green-500" }
+                 { title: "مدير التواصل الاجتماعي", desc: "تعلم صناعة المحتوى والتصميم الأساسي والإدارة.", color: "border-blue-100 bg-blue-50 text-blue-600" },
+                 { title: "مشتري الإعلانات (Media Buyer)", desc: "احتراف منصات الإعلانات وبناء مسارات التحويل.", color: "border-orange-100 bg-orange-50 text-orange-600" },
+                 { title: "المونتير التسويقي", desc: "ركز على مهارات إنتاج الفيديو الجذاب للمنصات.", color: "border-purple-100 bg-purple-50 text-purple-600" },
+                 { title: "المستقل المبتدئ", desc: "مهارات أساسية مع دليل البدء في العمل الحر.", color: "border-emerald-100 bg-emerald-50 text-emerald-600" }
               ].map((path, i) => (
-                 <div key={i} className={`p-6 rounded-3xl border ${path.color}`}>
+                 <div key={i} className={`p-6 rounded-2xl border ${path.color} shadow-sm`}>
                     <h3 className="text-xl font-bold mb-3">{path.title}</h3>
-                    <p className="text-sm opacity-80 mb-6">{path.desc}</p>
+                    <p className="text-sm opacity-90 mb-6 font-medium">{path.desc}</p>
                     <button className="text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
                        عرض مسار التعلم <ArrowLeft size={16} />
                     </button>
@@ -133,7 +133,7 @@ export default function Academy() {
         </div>
 
         {/* Courses Grid */}
-        <h2 className="text-3xl font-black mb-10 text-center">تصفح <span className="text-primary">جميع الدورات</span></h2>
+        <h2 className="text-3xl font-black mb-10 text-center text-slate-900">تصفح <span className="text-orange-500">جميع الدورات</span></h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course) => (
             <motion.div
@@ -141,49 +141,49 @@ export default function Academy() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="group rounded-3xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all hover:shadow-lg flex flex-col"
+              className="group rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col"
             >
-              <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+              <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
                 <img 
                   src={course.image} 
                   alt={course.title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                    <PlayCircle size={64} className="text-white" />
                 </div>
                 {course.tag && (
-                  <div className="absolute top-4 left-4 z-20 bg-primary px-3 py-1 rounded-full text-xs font-bold text-white">
+                  <div className="absolute top-4 left-4 z-20 bg-orange-500 px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm">
                     {course.tag}
                   </div>
                 )}
-                <div className="absolute bottom-4 right-4 z-20 bg-background/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-foreground">
+                <div className="absolute bottom-4 right-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-900 shadow-sm">
                   {course.level}
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold mb-3">{course.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
+                <h3 className="text-xl font-bold mb-3 text-slate-900">{course.title}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                   {course.desc}
                 </p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                <div className="flex items-center gap-4 text-sm text-slate-500 mb-6">
                    <div className="flex items-center gap-1.5">
-                      <Clock size={16} />
+                      <Clock size={16} className="text-orange-500" />
                       <span>{course.duration}</span>
                    </div>
                    <div className="flex items-center gap-1.5">
-                      <BookOpen size={16} />
+                      <BookOpen size={16} className="text-orange-500" />
                       <span>{course.lessons} درس</span>
                    </div>
                 </div>
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
                   <div className="flex items-center gap-2">
-                     <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+                     <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-xs">
                         {course.instructor.charAt(0)}
                      </div>
-                     <span className="text-sm font-semibold">{course.instructor}</span>
+                     <span className="text-sm font-semibold text-slate-700">{course.instructor}</span>
                   </div>
-                  <Button variant="outline" className="font-bold rounded-full" data-testid={`btn-course-${course.id}`}>
+                  <Button variant="outline" className="font-bold rounded-full border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white" data-testid={`btn-course-${course.id}`}>
                     تفاصيل الدورة
                   </Button>
                 </div>

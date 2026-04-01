@@ -131,11 +131,11 @@ export default function DigitalProducts() {
     : products.filter(p => p.category === activeTab);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-background">
+    <div className="min-h-screen bg-[#F8F9FC] pb-20">
       {/* Hero */}
-      <section className="bg-card py-20 border-b border-border mb-16 text-center">
+      <section className="bg-[#0f172a] py-32 pt-40 mb-16 text-center text-white">
         <div className="container mx-auto px-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 mb-6">
             <Download size={16} />
             <span className="text-sm font-bold">تحميل فوري بعد الدفع</span>
           </div>
@@ -144,13 +144,13 @@ export default function DigitalProducts() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-6"
           >
-            متجر <span className="text-primary">الموارد الرقمية</span>
+            متجر <span className="text-orange-500">الموارد الرقمية</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-xl text-slate-300 max-w-2xl mx-auto"
           >
             أدوات، قوالب، وحزم احترافية جاهزة للاستخدام لتسريع عملك ومضاعفة إنتاجيتك في التسويق والتصميم.
           </motion.p>
@@ -166,8 +166,8 @@ export default function DigitalProducts() {
               onClick={() => setActiveTab(category.id)}
               className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
                 activeTab === category.id
-                  ? "bg-primary text-white shadow-lg shadow-primary/20"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20"
+                  : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
               }`}
               data-testid={`tab-${category.id}`}
             >
@@ -190,29 +190,29 @@ export default function DigitalProducts() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="group rounded-3xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-colors flex flex-col"
+                className="group rounded-2xl overflow-hidden bg-white border border-slate-100 hover:border-orange-200 hover:shadow-xl hover:-translate-y-1 shadow-sm transition-all flex flex-col"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                   <img 
                     src={product.image} 
                     alt={product.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 left-4 z-20 bg-background/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-foreground flex items-center gap-1">
+                  <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-900 flex items-center gap-1 shadow-sm">
                     <Star size={12} className="text-yellow-500 fill-yellow-500" />
                     <span dir="ltr">{product.rating}</span>
                   </div>
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-lg font-bold mb-2 line-clamp-2">{product.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
+                  <h3 className="text-lg font-bold mb-2 line-clamp-2 text-slate-900">{product.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
                     {product.desc}
                   </p>
                   <div className="flex items-center justify-between mt-auto">
-                    <div className="text-xl font-black text-primary" dir="rtl">
-                      {product.price} <span className="text-sm font-normal text-muted-foreground">د.ج</span>
+                    <div className="text-xl font-black text-orange-500" dir="rtl">
+                      {product.price} <span className="text-sm font-normal text-slate-500">د.ج</span>
                     </div>
-                    <Button size="icon" className="rounded-full w-10 h-10 shadow-md shadow-primary/20" data-testid={`btn-buy-${product.id}`}>
+                    <Button size="icon" className="rounded-full w-10 h-10 bg-orange-500 text-white hover:bg-orange-600 shadow-md shadow-orange-500/20 border-0" data-testid={`btn-buy-${product.id}`}>
                       <ShoppingCart size={18} />
                     </Button>
                   </div>
@@ -223,8 +223,8 @@ export default function DigitalProducts() {
         </motion.div>
 
         {filteredProducts.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-muted-foreground text-lg">لا توجد منتجات في هذا التصنيف حالياً.</p>
+          <div className="text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm">
+            <p className="text-slate-500 text-lg">لا توجد منتجات في هذا التصنيف حالياً.</p>
           </div>
         )}
       </div>

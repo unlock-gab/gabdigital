@@ -88,22 +88,22 @@ export default function OurWork() {
     : projects.filter(p => p.category === activeTab);
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <div className="min-h-screen bg-[#F8F9FC] pb-20">
       {/* Hero */}
-      <section className="bg-card py-20 border-b border-border mb-16">
-        <div className="container mx-auto px-4 text-center">
+      <section className="bg-[#0f172a] py-32 pt-40 mb-16 text-center text-white">
+        <div className="container mx-auto px-4">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-6"
           >
-            أعمالنا التي <span className="text-primary">نفخر بها</span>
+            أعمالنا التي <span className="text-orange-500">نفخر بها</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-xl text-slate-300 max-w-2xl mx-auto"
           >
             نستعرض هنا بعضاً من مشاريعنا التي ساهمت في نجاح عملائنا وتحقيق أهدافهم التسويقية.
           </motion.p>
@@ -119,8 +119,8 @@ export default function OurWork() {
               onClick={() => setActiveTab(category.id)}
               className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
                 activeTab === category.id
-                  ? "bg-primary text-white shadow-lg shadow-primary/20"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20"
+                  : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
               }`}
               data-testid={`tab-${category.id}`}
             >
@@ -143,27 +143,27 @@ export default function OurWork() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="group rounded-3xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-colors"
+                className="group rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10 mix-blend-overlay"></div>
+                  <div className="absolute inset-0 bg-orange-500/20 group-hover:bg-transparent transition-colors z-10 mix-blend-overlay"></div>
                   <img 
                     src={project.image} 
                     alt={project.title} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 right-4 z-20 bg-background/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold text-foreground">
+                  <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-bold text-slate-900 shadow-sm">
                     {project.categoryLabel}
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold mb-3 text-slate-900">{project.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">
                     {project.desc}
                   </p>
-                  <Button variant="outline" className="w-full font-bold group/btn" data-testid={`btn-view-project-${project.id}`}>
+                  <Button variant="outline" className="w-full font-bold group/btn border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-full mt-auto" data-testid={`btn-view-project-${project.id}`}>
                     عرض التفاصيل
-                    <ExternalLink className="mr-2 w-4 h-4 text-muted-foreground group-hover/btn:text-foreground transition-colors" />
+                    <ExternalLink className="mr-2 w-4 h-4 transition-colors" />
                   </Button>
                 </div>
               </motion.div>
@@ -172,17 +172,17 @@ export default function OurWork() {
         </motion.div>
 
         {filteredProjects.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-muted-foreground text-lg">لا توجد مشاريع في هذا التصنيف حالياً.</p>
+          <div className="text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm">
+            <p className="text-slate-500 text-lg">لا توجد مشاريع في هذا التصنيف حالياً.</p>
           </div>
         )}
       </div>
       
       {/* CTA */}
       <section className="container mx-auto px-4 mt-32 text-center">
-        <h2 className="text-3xl font-black mb-6">هل تريد أن يكون مشروعك التالي هنا؟</h2>
+        <h2 className="text-3xl font-black mb-6 text-slate-900">هل تريد أن يكون مشروعك التالي هنا؟</h2>
         <Link href="/start-project">
-          <Button size="lg" className="font-bold rounded-full px-8 h-14 text-lg">
+          <Button size="lg" className="font-bold rounded-full px-8 h-14 text-lg bg-orange-500 text-white hover:bg-orange-600 shadow-md">
             ابدأ مشروعك الآن
             <ArrowLeft className="mr-2" />
           </Button>

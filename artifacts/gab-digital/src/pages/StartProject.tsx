@@ -58,20 +58,20 @@ export default function StartProject() {
 
   if (isSubmitted) {
      return (
-        <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-background">
+        <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-[#F8F9FC]">
            <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-card p-12 rounded-[3rem] border border-border text-center max-w-lg mx-auto shadow-2xl shadow-primary/5"
+              className="bg-white p-12 rounded-2xl border border-slate-100 text-center max-w-lg mx-auto shadow-md"
            >
-              <div className="w-24 h-24 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+              <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
                  <CheckCircle size={48} />
               </div>
-              <h2 className="text-3xl font-black mb-4">شكراً لتواصلك معنا!</h2>
-              <p className="text-muted-foreground text-lg mb-8">
+              <h2 className="text-3xl font-black mb-4 text-slate-900">شكراً لتواصلك معنا!</h2>
+              <p className="text-slate-600 text-lg mb-8">
                  تم استلام تفاصيل مشروعك بنجاح. يقوم فريقنا الآن بمراجعتها وسنتواصل معك خلال 24-48 ساعة القادمة لمناقشة الخطوات التالية.
               </p>
-              <Button onClick={() => window.location.href = '/'} className="font-bold rounded-full px-8 h-12 w-full">
+              <Button onClick={() => window.location.href = '/'} className="font-bold rounded-full px-8 h-12 w-full bg-orange-500 hover:bg-orange-600 text-white shadow-md border-0">
                  العودة للرئيسية
               </Button>
            </motion.div>
@@ -80,21 +80,21 @@ export default function StartProject() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-background">
+    <div className="min-h-screen pt-32 pb-20 bg-[#F8F9FC]">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-black mb-4"
+            className="text-4xl md:text-5xl font-black mb-4 text-slate-900"
           >
-            دعنا نبني شيئاً <span className="text-primary">عظيماً معاً</span>
+            دعنا نبني شيئاً <span className="text-orange-500">عظيماً معاً</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground"
+            className="text-xl text-slate-600"
           >
             املأ النموذج أدناه لنفهم احتياجاتك بشكل أفضل ونقدم لك الحل الأنسب لمشروعك.
           </motion.p>
@@ -104,7 +104,7 @@ export default function StartProject() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-card p-8 md:p-10 rounded-3xl border border-border shadow-xl shadow-primary/5"
+          className="bg-white p-8 md:p-10 rounded-2xl border border-slate-100 shadow-md"
         >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -115,9 +115,9 @@ export default function StartProject() {
                    name="fullName"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">الاسم الكامل *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">الاسم الكامل *</FormLabel>
                        <FormControl>
-                         <Input placeholder="أحمد محمد" className="h-12 bg-background" {...field} data-testid="input-fullname" />
+                         <Input placeholder="أحمد محمد" className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500" {...field} data-testid="input-fullname" />
                        </FormControl>
                        <FormMessage />
                      </FormItem>
@@ -129,9 +129,9 @@ export default function StartProject() {
                    name="email"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">البريد الإلكتروني *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">البريد الإلكتروني *</FormLabel>
                        <FormControl>
-                         <Input type="email" placeholder="example@domain.com" className="h-12 bg-background text-left" dir="ltr" {...field} data-testid="input-email" />
+                         <Input type="email" placeholder="example@domain.com" className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500 text-left" dir="ltr" {...field} data-testid="input-email" />
                        </FormControl>
                        <FormMessage />
                      </FormItem>
@@ -145,9 +145,9 @@ export default function StartProject() {
                    name="phone"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">رقم الهاتف / الواتساب *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">رقم الهاتف / الواتساب *</FormLabel>
                        <FormControl>
-                         <Input placeholder="+213 555 55 55 55" className="h-12 bg-background text-left" dir="ltr" {...field} data-testid="input-phone" />
+                         <Input placeholder="+213 555 55 55 55" className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500 text-left" dir="ltr" {...field} data-testid="input-phone" />
                        </FormControl>
                        <FormMessage />
                      </FormItem>
@@ -159,14 +159,14 @@ export default function StartProject() {
                    name="businessType"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">نوع النشاط التجاري *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">نوع النشاط التجاري *</FormLabel>
                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                          <FormControl>
-                           <SelectTrigger className="h-12 bg-background" data-testid="select-business">
+                           <SelectTrigger className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500" data-testid="select-business">
                              <SelectValue placeholder="اختر نوع النشاط" />
                            </SelectTrigger>
                          </FormControl>
-                         <SelectContent>
+                         <SelectContent className="bg-white">
                            <SelectItem value="ecommerce">تجارة إلكترونية</SelectItem>
                            <SelectItem value="services">خدمات B2B</SelectItem>
                            <SelectItem value="realestate">عقارات</SelectItem>
@@ -189,14 +189,14 @@ export default function StartProject() {
                    name="serviceRequired"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">الخدمة الرئيسية المطلوبة *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">الخدمة الرئيسية المطلوبة *</FormLabel>
                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                          <FormControl>
-                           <SelectTrigger className="h-12 bg-background" data-testid="select-service">
+                           <SelectTrigger className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500" data-testid="select-service">
                              <SelectValue placeholder="اختر الخدمة" />
                            </SelectTrigger>
                          </FormControl>
-                         <SelectContent>
+                         <SelectContent className="bg-white">
                            <SelectItem value="social">إدارة التواصل الاجتماعي</SelectItem>
                            <SelectItem value="ads">حملات إعلانية ممولة</SelectItem>
                            <SelectItem value="web">تصميم موقع / متجر</SelectItem>
@@ -215,14 +215,14 @@ export default function StartProject() {
                    name="budget"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">الميزانية المتوقعة (شهرياً أو للمشروع) *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">الميزانية المتوقعة (شهرياً أو للمشروع) *</FormLabel>
                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                          <FormControl>
-                           <SelectTrigger className="h-12 bg-background" data-testid="select-budget">
+                           <SelectTrigger className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500" data-testid="select-budget">
                              <SelectValue placeholder="حدد الميزانية التقريبية" />
                            </SelectTrigger>
                          </FormControl>
-                         <SelectContent>
+                         <SelectContent className="bg-white">
                            <SelectItem value="under-50k">أقل من 50,000 دج</SelectItem>
                            <SelectItem value="50k-100k">50,000 - 100,000 دج</SelectItem>
                            <SelectItem value="100k-200k">100,000 - 200,000 دج</SelectItem>
@@ -241,11 +241,11 @@ export default function StartProject() {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-base font-bold">وصف المشروع والأهداف *</FormLabel>
+                    <FormLabel className="text-base font-bold text-slate-700">وصف المشروع والأهداف *</FormLabel>
                     <FormControl>
                       <Textarea 
                         placeholder="حدثنا عن مشروعك، ما هي التحديات التي تواجهها؟ وما هي الأهداف التي تطمح لتحقيقها؟" 
-                        className="min-h-[120px] bg-background resize-y" 
+                        className="min-h-[120px] bg-white border-slate-200 focus-visible:ring-orange-500 resize-y" 
                         {...field} 
                         data-testid="textarea-desc"
                       />
@@ -261,9 +261,9 @@ export default function StartProject() {
                    name="links"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">روابط مفيدة (اختياري)</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">روابط مفيدة (اختياري)</FormLabel>
                        <FormControl>
-                         <Input placeholder="رابط موقعك الحالي أو حسابات التواصل" className="h-12 bg-background text-left" dir="ltr" {...field} />
+                         <Input placeholder="رابط موقعك الحالي أو حسابات التواصل" className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500 text-left" dir="ltr" {...field} />
                        </FormControl>
                        <FormMessage />
                      </FormItem>
@@ -275,14 +275,14 @@ export default function StartProject() {
                    name="startDate"
                    render={({ field }) => (
                      <FormItem>
-                       <FormLabel className="text-base font-bold">متى ترغب في البدء؟ *</FormLabel>
+                       <FormLabel className="text-base font-bold text-slate-700">متى ترغب في البدء؟ *</FormLabel>
                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                          <FormControl>
-                           <SelectTrigger className="h-12 bg-background" data-testid="select-start">
+                           <SelectTrigger className="h-12 bg-white border-slate-200 focus-visible:ring-orange-500" data-testid="select-start">
                              <SelectValue placeholder="اختر الموعد" />
                            </SelectTrigger>
                          </FormControl>
-                         <SelectContent>
+                         <SelectContent className="bg-white">
                            <SelectItem value="immediately">في أسرع وقت ممكن</SelectItem>
                            <SelectItem value="1-2-weeks">خلال أسبوع إلى أسبوعين</SelectItem>
                            <SelectItem value="next-month">الشهر القادم</SelectItem>
@@ -295,11 +295,11 @@ export default function StartProject() {
                  />
               </div>
 
-              <Button type="submit" size="lg" className="w-full h-14 text-lg font-bold rounded-xl mt-4" disabled={form.formState.isSubmitting} data-testid="btn-submit-project">
+              <Button type="submit" size="lg" className="w-full h-14 text-lg font-bold rounded-full mt-4 bg-orange-500 hover:bg-orange-600 text-white shadow-md border-0" disabled={form.formState.isSubmitting} data-testid="btn-submit-project">
                 {form.formState.isSubmitting ? "جاري الإرسال..." : "إرسال طلب المشروع"}
                 {!form.formState.isSubmitting && <Send className="mr-2 w-5 h-5" />}
               </Button>
-              <p className="text-center text-sm text-muted-foreground mt-4">
+              <p className="text-center text-sm text-slate-500 mt-4">
                  معلوماتك آمنة معنا ولن يتم مشاركتها مع أي جهة خارجية.
               </p>
             </form>
