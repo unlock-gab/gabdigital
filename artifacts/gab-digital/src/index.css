@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -50,46 +50,52 @@
 }
 
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
+  --button-outline: rgba(255,255,255, .10);
+  --badge-outline: rgba(255,255,255, .05);
 
-  --opaque-button-border-intensity: -8;
+  --opaque-button-border-intensity: 9;
 
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
+  --elevate-1: rgba(255,255,255, .04);
+  --elevate-2: rgba(255,255,255, .09);
 
-  --background: 0 0% 100%;
-  --foreground: 221 44% 7%;
-  --border: 214 32% 91%;
-  --card: 0 0% 100%;
-  --card-foreground: 221 44% 7%;
-  --card-border: 214 32% 91%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 221 44% 7%;
-  --popover-border: 214 32% 91%;
-  --primary: 16 100% 56%;
+  --background: 222 47% 11%;
+  --foreground: 0 0% 100%;
+  --border: 222 47% 18%;
+  --card: 222 47% 14%;
+  --card-foreground: 0 0% 100%;
+  --card-border: 222 47% 18%;
+  --popover: 222 47% 14%;
+  --popover-foreground: 0 0% 100%;
+  --popover-border: 222 47% 18%;
+  
+  --primary: 25 95% 53%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 186 100% 50%;
-  --secondary-foreground: 221 44% 7%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --accent: 16 100% 56%;
+  
+  --secondary: 199 89% 48%;
+  --secondary-foreground: 0 0% 100%;
+  
+  --muted: 222 47% 18%;
+  --muted-foreground: 215 20% 75%;
+  
+  --accent: 25 95% 53%;
   --accent-foreground: 0 0% 100%;
+  
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 214 32% 91%;
-  --ring: 16 100% 56%;
+  
+  --input: 222 47% 18%;
+  --ring: 25 95% 53%;
 
-  --app-font-sans: 'Inter', sans-serif;
-  --app-font-display: 'Plus Jakarta Sans', sans-serif;
+  --app-font-sans: 'Cairo', sans-serif;
+  --app-font-display: 'Cairo', sans-serif;
   --radius: 0.75rem;
 
-  --sidebar-primary: 221 44% 7%;
+  --sidebar-primary: 222 47% 11%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 16 100% 56%;
+  --sidebar-accent: 25 95% 53%;
   --sidebar-accent-foreground: 0 0% 100%;
-  --sidebar-border: 214 32% 91%;
-  --sidebar-ring: 16 100% 56%;
+  --sidebar-border: 222 47% 18%;
+  --sidebar-ring: 25 95% 53%;
 }
 
 .dark {
@@ -101,27 +107,33 @@
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
 
-  --background: 221 44% 7%;
+  --background: 222 47% 11%;
   --foreground: 0 0% 100%;
-  --border: 221 44% 15%;
-  --card: 221 44% 10%;
+  --border: 222 47% 18%;
+  --card: 222 47% 14%;
   --card-foreground: 0 0% 100%;
-  --card-border: 221 44% 15%;
-  --popover: 221 44% 10%;
+  --card-border: 222 47% 18%;
+  --popover: 222 47% 14%;
   --popover-foreground: 0 0% 100%;
-  --popover-border: 221 44% 15%;
-  --primary: 16 100% 56%;
+  --popover-border: 222 47% 18%;
+  
+  --primary: 25 95% 53%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 186 100% 50%;
-  --secondary-foreground: 221 44% 7%;
-  --muted: 221 44% 15%;
-  --muted-foreground: 215 20% 65%;
-  --accent: 16 100% 56%;
+  
+  --secondary: 199 89% 48%;
+  --secondary-foreground: 0 0% 100%;
+  
+  --muted: 222 47% 18%;
+  --muted-foreground: 215 20% 75%;
+  
+  --accent: 25 95% 53%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 62% 30%;
+  
+  --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 221 44% 15%;
-  --ring: 16 100% 56%;
+  
+  --input: 222 47% 18%;
+  --ring: 25 95% 53%;
 }
 
 @layer base {
