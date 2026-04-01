@@ -1,0 +1,157 @@
+You are a senior full-stack developer. I want you to add a new **Algeria map page** to my website **client.reparily.com**.
+
+## Project context
+
+* Website name: **Reparateur DZ / Reparily Client**
+* Language: **Arabic**
+* Layout direction: **RTL**
+* The platform connects customers with phone repair technicians in Algeria
+* I want a new page where visitors can see repair technicians displayed on a map of Algeria
+
+## Main goal
+
+Create a professional **Technicians Map page** where users can browse and find technicians visually by location.
+
+## Main requirements
+
+### 1) New map page
+
+Create a dedicated page such as:
+
+* `/map`
+* or `/technicians-map`
+
+This page should display:
+
+* a map focused on Algeria
+* technician locations as map markers
+* an attractive Arabic RTL interface
+* a clean modern design matching the website
+
+### 2) Show technicians on the map
+
+Each technician should appear on the map using a marker.
+
+Each marker/card popup should show:
+
+* technician name
+* profile image if available
+* wilaya / city
+* phone number or contact button
+* rating
+* repair specialties
+* verified badge if verified
+* store/workshop name if available
+
+### 3) Location data
+
+Use technician location data from the database.
+
+If exact coordinates are available:
+
+* use latitude and longitude directly
+
+If only wilaya/city/address is available:
+
+* convert them into coordinates or use a mapping strategy based on stored locations
+
+Make sure each technician can be placed correctly on the map.
+
+### 4) Filters and search
+
+Add useful filters above or beside the map:
+
+* filter by wilaya
+* filter by city if available
+* filter by specialty/service
+* filter verified technicians only
+* filter open now if possible
+* search by technician name
+
+When filters are changed:
+
+* update the markers on the map
+* update the visible technician list if a list exists beside the map
+
+### 5) Technician list near the map
+
+Besides the map, or under it on mobile, also show a list of technicians currently visible or matching filters.
+
+Each list card should include:
+
+* technician name
+* rating
+* location
+* short service description
+* contact button
+* “view on map” interaction
+* verified badge if verified
+
+### 6) User location
+
+If the visitor allows location access:
+
+* detect the user’s current location
+* show their position on the map
+* sort or highlight the nearest technicians
+* optionally show “technicians near you”
+
+If geolocation is denied:
+
+* keep the map working normally
+
+### 7) Verified technicians
+
+Verified technicians should stand out clearly:
+
+* special verified badge
+* premium marker color or icon
+* appear first in the list if relevant
+* look more trusted than regular technicians
+
+### 8) UI/UX requirements
+
+Make the page feel modern and useful:
+
+* Arabic RTL layout
+* responsive design
+* elegant map section
+* polished filters
+* clean cards and popups
+* strong visual trust
+* easy browsing on desktop and mobile
+
+### 9) Map features
+
+Implement useful map behaviors:
+
+* zoom in/out
+* clustering if many technicians exist
+* clickable markers
+* smooth popup cards
+* center the map on Algeria by default
+* fit map bounds based on visible results if useful
+
+### 10) Technical requirements
+
+* follow the current stack and architecture
+* keep the implementation production-ready
+* use reusable components
+* do not break existing functionality
+* make the map page fast and optimized
+* load technician data efficiently
+
+### 11) Final deliverables
+
+I want you to implement:
+
+1. a new Algeria technicians map page
+2. technician markers on the map
+3. filters and search
+4. technician list integrated with the map
+5. user geolocation support
+6. verified technician highlighting
+7. clean Arabic RTL responsive UI
+8. full integration into the existing project
+
+Make it real and production-ready, not a mockup.

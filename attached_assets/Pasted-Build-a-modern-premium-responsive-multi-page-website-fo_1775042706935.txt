@@ -1,0 +1,370 @@
+Build a modern, premium, responsive multi-page website for a digital agency brand called "Gab Digital".
+
+PROJECT TYPE:
+A beautiful personal/agency website for selling digital services, digital products, courses, and showcasing portfolio/demo work.
+
+BRAND POSITIONING:
+Gab Digital is a professional digital communication agency / digital marketing studio that helps businesses, entrepreneurs, and creators grow online through social media management, content creation, websites, paid ads, digital marketing, branding, and training.
+
+MAIN GOAL:
+Create a high-converting, visually stunning, smooth, modern website that feels premium, elegant, and trustworthy.
+The website must look like a real professional agency website, not a basic template.
+
+DESIGN STYLE:
+- Modern
+- Premium
+- Clean
+- Elegant
+- Creative
+- High-end digital agency look
+- Smooth UI/UX
+- Strong visual hierarchy
+- Beautiful spacing
+- Rounded cards
+- Soft shadows
+- Nice gradients
+- Glassmorphism touches only if tasteful
+- Animated sections on scroll
+- Micro-interactions on hover
+- Smooth page transitions if possible
+
+COLOR SYSTEM:
+Use a beautiful, harmonious, premium palette.
+Suggested direction:
+- Dark navy / deep charcoal base
+- White / off-white backgrounds for contrast sections
+- Main accent color: vibrant orange or electric purple or premium blue
+- Secondary accent: soft cyan / violet / gold depending on what fits best
+The color palette must feel cohesive and luxurious, not childish.
+Make sure text contrast and readability are excellent.
+
+TYPOGRAPHY:
+Use elegant modern fonts.
+Strong headings, clean body text, premium spacing, and excellent readability.
+Use large hero headings and polished section titles.
+
+ANIMATIONS:
+Very important:
+- Add smooth modern animations
+- Scroll reveal animations
+- Fade-up animations
+- Slide-in animations
+- Hover effects on cards and buttons
+- Image zoom on hover where appropriate
+- Animated counters/statistics if used
+- Smooth button transitions
+- Subtle floating effects in hero area
+Animations must feel premium and smooth, not excessive or distracting.
+
+TECH STACK:
+Use a modern frontend stack suitable for Replit.
+Preferred:
+- React
+- Tailwind CSS
+- Framer Motion
+- Responsive layout
+- Component-based structure
+If needed, use React Router for multiple pages.
+
+WEBSITE STRUCTURE:
+Create the following pages:
+
+1) Home
+2) Services
+3) Our Work / Portfolio
+4) Digital Products
+5) Gab Academy / Courses
+6) About
+7) Start a Project
+8) Contact
+
+NAVBAR:
+Create a premium sticky navbar with:
+- Home
+- Services
+- Our Work
+- Digital Products
+- Academy
+- About
+- Contact
+- A standout CTA button: "Start a Project"
+
+HOME PAGE SECTIONS:
+Build a stunning homepage with these sections:
+
+1. Hero Section
+- Powerful headline introducing Gab Digital
+- Short brand description
+- Two CTA buttons:
+  - Start a Project
+  - View Our Work
+- Add decorative modern visuals/shapes/background effects
+- Include motion/animation in hero section
+
+2. Services Overview
+Display key service categories as elegant animated cards:
+- Social Media Management
+- Content Creation & Production
+- Websites & E-commerce
+- Paid Ads
+- Digital Marketing
+- Printing & Branding
+- Courses & Training
+
+3. Why Choose Gab Digital
+Show clear benefits like:
+- Professional execution
+- Full digital solutions
+- Strategy + creativity
+- Result-oriented approach
+- Modern tools and expertise
+
+4. Featured Work
+Show portfolio previews/demo websites/projects in a stylish grid
+
+5. Featured Digital Products
+Show selected products in product cards
+
+6. Featured Courses
+Highlight a few courses with nice course cards
+
+7. Testimonials
+Elegant testimonials slider or grid
+
+8. Final CTA Section
+Strong conversion section inviting the visitor to contact or start a project
+
+SERVICES PAGE:
+Create a professional services page with categorized sections and beautiful cards.
+
+Service categories:
+1. Social Media & Content
+- Social media management
+- Page setup and optimization
+- Content creation and copywriting
+- Post scheduling
+- Community management
+- Monthly content planning
+
+2. Creative Production
+- Product photography
+- Promotional videos
+- Video editing
+- Motion graphics
+- Event coverage
+
+3. Web & E-commerce
+- Company websites
+- Service platforms
+- Real estate websites
+- E-commerce stores
+- Domain & hosting
+- Speed optimization
+
+4. Paid Ads & Performance
+- Meta Ads
+- Google Ads
+- TikTok Ads
+- Retargeting
+- Campaign analysis
+- Performance optimization
+
+5. Digital Marketing
+- Monthly marketing plans
+- Market and competitor analysis
+- SEO
+- Email marketing
+- Funnel building
+
+6. Printing & Branding
+- Flyers
+- Roll-ups
+- Stickers
+- Packaging
+- Advertising print materials
+
+7. Courses & Training
+- Social media
+- Editing
+- Design
+- Ads
+- Freelancing
+
+Each service card should include:
+- Service title
+- Short description
+- Nice icon/visual
+- Learn more button
+- Hover animation
+
+PORTFOLIO PAGE:
+Create an “Our Work” page with filtering tabs:
+- All
+- Websites
+- Ads
+- Branding
+- Content
+- Video
+
+Include project/demo cards with:
+- Image preview
+- Title
+- Category
+- Short description
+- Optional demo button
+
+DIGITAL PRODUCTS PAGE:
+Create a premium digital store page for downloadable products.
+
+Product categories:
+- Templates
+- Marketing Resources
+- Creative Assets
+- Learning Materials
+- Business Packs
+
+Product examples:
+- CapCut templates
+- Presets & LUTs
+- Canva templates
+- Social media post packs
+- Ad creative templates
+- Content calendars
+- E-books
+- Checklists
+- Notion templates
+- Merchant/business packs
+- Ad scripts
+- Training files
+- Mini courses
+- PDF guides
+- Beginner bundles
+
+Each product card should have:
+- Thumbnail
+- Product name
+- Category
+- Short description
+- Price
+- CTA button
+
+ACADEMY / COURSES PAGE:
+Create a polished courses page for Gab Academy.
+
+Include courses like:
+- Facebook Ads Course
+- TikTok Ads Course
+- Social Media Course
+- Video Editing Course
+- Design Course
+- Freelancing Course
+
+Each course card should show:
+- Image
+- Title
+- Level
+- Duration
+- Short summary
+- CTA button
+
+Also add learning paths / tracks section:
+- Social Media Manager Path
+- Media Buyer Path
+- Video Editor Path
+- Freelancer Starter Path
+
+ABOUT PAGE:
+Create a premium About page containing:
+- Who is Gab Digital
+- Mission
+- Vision
+- Values
+- Who we help
+- How we work
+- Why we are different
+
+START A PROJECT PAGE:
+Create a beautiful project inquiry form page with a premium layout.
+
+Form fields:
+- Full name
+- Email
+- Phone number
+- Business/activity type
+- Requested service
+- Estimated budget
+- Project description
+- Website/social links
+- Preferred start date
+
+Make the form visually attractive and modern.
+
+CONTACT PAGE:
+Create a nice contact page with:
+- Contact form
+- WhatsApp button
+- Email block
+- Social media links
+- Instagram link section for Gab Digital
+
+Use this Instagram:
+https://www.instagram.com/digital.gab16
+
+IMPORTANT EXTRA SECTION:
+Add a separate professional section or page for:
+"Official Subscription Assistance"
+
+This should be presented carefully as a professional assistance/setup service, not shady account selling.
+
+Position it as:
+Helping clients subscribe officially to digital tools if they do not have payment methods or need assistance with setup.
+
+Examples:
+- Official subscription setup assistance
+- Account onboarding assistance
+- Initial tool configuration help
+
+Do NOT present it as shared account selling.
+Keep the language professional, clean, and trustworthy.
+
+UI/UX REQUIREMENTS:
+- Fully responsive on desktop, tablet, and mobile
+- Premium spacing and layout
+- Smooth scrolling
+- Elegant button styles
+- Consistent border radius
+- Beautiful cards
+- Rich hover states
+- Clear CTA buttons
+- Balanced section padding
+- Clean footer with useful links and brand info
+
+FOOTER:
+Include:
+- Gab Digital logo/text
+- Short agency description
+- Quick links
+- Services links
+- Contact info
+- Instagram link
+- Copyright
+
+COPYWRITING:
+Write polished, persuasive, professional agency-style English copy for all sections.
+Make the text feel premium and marketing-focused.
+Do not use bland placeholder text.
+Use realistic content for a professional digital agency.
+
+OPTIONAL NICE TOUCHES:
+- Animated counters for stats
+- FAQ section
+- Floating WhatsApp button
+- Newsletter or lead magnet section
+- Scroll-to-top button
+- Soft background glow effects
+- Smooth section dividers
+
+DELIVERABLE:
+Generate the full working website code with clean structure, reusable components, and beautiful styling.
+Make sure the final result looks visually impressive and premium.
+Focus heavily on aesthetics, consistency, animation, and conversion.

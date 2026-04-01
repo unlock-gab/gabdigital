@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Gab Digital Agency Website"
+version = "1.0.0"
+id = "artifacts/gab-digital"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24645
+
+[services.development]
+run = "pnpm --filter @workspace/gab-digital run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/gab-digital", "run", "build" ]
+publicDir = "artifacts/gab-digital/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24645"
+BASE_PATH = "/"
