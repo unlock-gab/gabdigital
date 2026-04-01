@@ -1,0 +1,127 @@
+The admin panel is currently not controlling the real website content.
+
+IMPORTANT PROBLEM:
+Right now, when I delete or edit items from the admin panel, nothing changes on the public website.
+This means the website is still using hardcoded/mock/static data instead of reading from the admin-managed database.
+
+I want the admin panel to fully control the real website content.
+
+MAIN GOAL:
+Make the admin dashboard the real content management system for the website.
+
+REQUIRED FIX:
+Remove all hardcoded/static/mock data from the public website pages and connect everything to the same real data source used by the admin panel.
+
+WHAT MUST HAPPEN:
+- If I add a service in admin, it must appear on the public website
+- If I edit a service in admin, it must update on the public website
+- If I delete a service in admin, it must disappear from the public website
+
+Same for:
+- Portfolio / Our Work
+- Digital Products
+- Courses
+- Testimonials
+- FAQ
+- Site settings where applicable
+
+IMPORTANT:
+The public website and admin panel must use one single source of truth.
+No duplicate fake data.
+No fallback hardcoded arrays.
+No mock-only admin behavior.
+
+CHECK THE CURRENT CODEBASE FOR:
+- hardcoded arrays
+- static objects
+- mockData files
+- services.ts
+- portfolio.ts
+- products.ts
+- courses.ts
+- testimonials.ts
+- fake local state data
+- placeholder data inside page components
+
+Replace all of that with real database-driven fetching.
+
+DATABASE / BACKEND:
+Use the real persistent data layer already configured for the project.
+If Supabase is used, make both admin and public site read/write from Supabase tables.
+If another backend is used, make everything consistent and unified.
+
+DATA FLOW REQUIRED:
+Admin panel:
+- create
+- update
+- delete
+
+Public website:
+- fetch and display live data from database
+
+SECTIONS TO FULLY CONNECT:
+1. Services
+2. Portfolio
+3. Products
+4. Courses
+5. Testimonials
+6. FAQ
+7. Site settings / branding text if available
+
+SERVICES SPECIFICALLY:
+The /admin/services page must manage the exact services shown on:
+- homepage services section
+- services page
+- any service detail sections
+
+PORTFOLIO SPECIFICALLY:
+The /admin/portfolio page must manage the exact projects shown on:
+- homepage featured work
+- portfolio / our work page
+
+PRODUCTS SPECIFICALLY:
+The /admin/products page must manage the exact products shown on:
+- homepage featured products
+- products page
+
+COURSES SPECIFICALLY:
+The /admin/courses page must manage the exact courses shown on:
+- homepage featured academy section
+- academy page
+
+TESTIMONIALS SPECIFICALLY:
+The /admin/testimonials page must control the testimonials shown on the public website
+
+FAQ:
+The /admin/faq page must control the FAQ content shown on the public website
+
+SETTINGS:
+If site settings exist, use admin-managed values for:
+- hero text
+- contact info
+- footer text
+- social links
+- WhatsApp link
+- brand settings if implemented
+
+VERY IMPORTANT:
+Do not leave any public page connected to fake content.
+Even if there is no data yet, show proper empty states.
+Do not silently use hardcoded fallback content.
+
+EMPTY STATE RULE:
+If I delete all services from admin, then the public services section should show no services or a proper empty state.
+It must NOT continue showing old hardcoded services.
+
+SAME FOR PORTFOLIO:
+If I delete all portfolio items from admin, they must disappear from the public "Our Work" page.
+
+ADMIN PAGES:
+Also fix admin pages so they display the real saved data from the database.
+If /admin/services says “No services found” while services are visible on the public site, that means they are disconnected.
+Fix this.
+
+DELIVERABLE:
+Refactor the entire project so the admin panel becomes the real CMS for the website.
+All CRUD actions from admin must directly affect the live public website content.
+Eliminate hardcoded/mock/static content from the public-facing pages.

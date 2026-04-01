@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
-  ArrowLeft, CheckCircle2, Star, TrendingUp, Users, Award,
-  MonitorSmartphone, Megaphone, PenTool, BookOpen, Layers,
-  Video, Quote, Zap, ShieldCheck, BarChart2, HeartHandshake
+  ArrowLeft, Star, TrendingUp, Users, Award,
+  Quote, Zap, ShieldCheck, BarChart2, HeartHandshake
 } from "lucide-react";
+import { useServices, useTestimonials } from "@/hooks/useSiteData";
+import { getIcon, getPalette } from "@/lib/palette";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -19,72 +20,6 @@ const inView = (delay = 0) => ({
   transition: { duration: 0.55, delay, ease: "easeOut" }
 });
 
-const services = [
-  {
-    icon: MonitorSmartphone,
-    title: "التواصل الاجتماعي",
-    desc: "نبني مجتمعات نشطة تتفاعل مع علامتك وتتحول إلى عملاء دائمين.",
-    gradient: "from-blue-600 to-indigo-700",
-    glow: "rgba(99,102,241,0.3)",
-    accent: "#818CF8",
-    tag: "Social Media"
-  },
-  {
-    icon: Video,
-    title: "الإنتاج الإبداعي",
-    desc: "صور وفيديوهات احترافية تخطف الأنظار وتحفز الشراء فوراً.",
-    gradient: "from-rose-500 to-pink-700",
-    glow: "rgba(244,63,94,0.3)",
-    accent: "#FB7185",
-    tag: "Creative"
-  },
-  {
-    icon: Layers,
-    title: "المواقع والتجارة",
-    desc: "متاجر ومواقع سريعة وجذابة تضاعف معدلات التحويل.",
-    gradient: "from-teal-500 to-cyan-700",
-    glow: "rgba(20,184,166,0.3)",
-    accent: "#2DD4BF",
-    tag: "Web Dev"
-  },
-  {
-    icon: Megaphone,
-    title: "الإعلانات والأداء",
-    desc: "حملات ممولة دقيقة تصل لجمهورك بأعلى عائد استثمار ممكن.",
-    gradient: "from-orange-500 to-amber-600",
-    glow: "rgba(249,115,22,0.3)",
-    accent: "#FB923C",
-    tag: "Paid Ads"
-  },
-  {
-    icon: TrendingUp,
-    title: "التسويق الرقمي",
-    desc: "استراتيجيات مبنية على البيانات تحقق نمواً حقيقياً ومستداماً.",
-    gradient: "from-green-500 to-emerald-700",
-    glow: "rgba(34,197,94,0.3)",
-    accent: "#4ADE80",
-    tag: "Marketing"
-  },
-  {
-    icon: PenTool,
-    title: "الهوية البصرية",
-    desc: "تصميم هوية لا تُنسى تعكس قيمتك وتميّزك في السوق.",
-    gradient: "from-purple-600 to-violet-700",
-    glow: "rgba(139,92,246,0.3)",
-    accent: "#A78BFA",
-    tag: "Branding"
-  },
-  {
-    icon: BookOpen,
-    title: "الدورات والتدريب",
-    desc: "تدريب عملي ومكثف يحوّلك إلى محترف في المجال الرقمي.",
-    gradient: "from-yellow-500 to-orange-600",
-    glow: "rgba(234,179,8,0.3)",
-    accent: "#FCD34D",
-    tag: "Academy"
-  },
-];
-
 const whyUs = [
   { icon: Award, title: "فريق خبراء محترف", desc: "كل عضو في فريقنا متخصص في مجاله بخبرة عملية لا مثيل لها." },
   { icon: Zap, title: "نتائج سريعة وقابلة للقياس", desc: "نضع مؤشرات واضحة ونقدم تقارير دورية عن أداء كل خدمة." },
@@ -94,13 +29,17 @@ const whyUs = [
   { icon: TrendingUp, title: "استراتيجيات مخصصة", desc: "لا حلول جاهزة — كل خطة مصممة خصيصاً لطبيعة عملك." },
 ];
 
-const testimonials = [
-  { name: "أحمد بلقاسم", role: "مؤسس متجر إلكتروني", text: "تعاملت معهم في إطلاق متجري الإلكتروني وإدارة حملاتي. النتائج فاقت توقعاتي بكثير. فريق محترف وملتزم حقاً." },
-  { name: "سارة بوخاري", role: "صاحبة علامة تجارية", text: "صمموا هويتي البصرية وأداروا صفحاتي على التواصل الاجتماعي. أصبح تفاعل جمهوري أضعاف ما كان عليه قبل التعاون معهم." },
-  { name: "كريم مسعودي", role: "مدير شركة عقارات", text: "موقعنا الجديد وحملات جوجل التي أطلقوها حقّقت عوائد ممتازة. أفضل استثمار رقمي قمت به حتى الآن." },
-];
-
 export default function Home() {
+  const allServices = useServices();
+  const services = allServices.slice(0, 6);
+  const allTestimonials = useTestimonials();
+  const testimonials = allTestimonials.map(t => ({
+    name: t.clientName,
+    role: t.businessName,
+    text: t.text,
+    rating: t.rating,
+  }));
+
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F8FAFC" }}>
 
@@ -227,35 +166,34 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => {
-              const Icon = service.icon;
+            {services.length === 0 ? (
+              <div className="col-span-3 text-center py-16 bg-white rounded-2xl border border-slate-100">
+                <p className="text-slate-400 font-semibold">لا توجد خدمات حالياً — أضفها من لوحة الإدارة.</p>
+              </div>
+            ) : services.map((service, i) => {
+              const palette = getPalette(i);
+              const Icon = getIcon(service.icon);
               return (
                 <motion.div
-                  key={i}
+                  key={service.id}
                   {...inView(i * 0.06)}
                   className="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
                 >
                   {/* visual top band */}
-                  <div className={`relative h-28 bg-gradient-to-br ${service.gradient} flex items-center justify-between px-6 overflow-hidden`}>
-                    {/* glow */}
-                    <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full blur-2xl opacity-50"
-                      style={{ background: service.glow }} />
-                    {/* dot grid */}
-                    <div className="absolute inset-0 opacity-10"
-                      style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "16px 16px" }} />
-
+                  <div className={`relative h-28 bg-gradient-to-br ${palette.gradient} flex items-center justify-between px-6 overflow-hidden`}>
+                    <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full blur-2xl opacity-50" style={{ background: palette.glow }} />
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "16px 16px" }} />
                     <div className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg"
                       style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.25)" }}>
                       <Icon size={30} color="white" />
                     </div>
-
-                    <span className="relative z-10 text-xs font-bold text-white/60 tracking-wider" dir="ltr">{service.tag}</span>
+                    <span className="relative z-10 text-xs font-bold text-white/60 tracking-wider">{service.category}</span>
                   </div>
 
                   {/* content */}
                   <div className="p-6">
                     <h3 className="text-xl font-black text-slate-900 mb-2">{service.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-5">{service.desc}</p>
+                    <p className="text-slate-500 text-sm leading-relaxed mb-5">{service.shortDescription}</p>
                     <Link href="/services">
                       <span className="inline-flex items-center gap-1.5 text-orange-500 font-bold text-sm group-hover:gap-3 transition-all cursor-pointer">
                         اكتشف المزيد
@@ -418,23 +356,23 @@ export default function Home() {
             <p className="text-lg text-slate-600">نجاح عملائنا هو النجاح الحقيقي الذي نسعى إليه كل يوم.</p>
           </motion.div>
 
+          {testimonials.length === 0 ? (
+            <div className="text-center py-16 bg-white rounded-2xl border border-slate-100">
+              <p className="text-slate-400 font-semibold">لا توجد شهادات حالياً — أضفها من لوحة الإدارة.</p>
+            </div>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <motion.div key={i} {...inView(i * 0.1)}
                 className="relative bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow border border-slate-100 flex flex-col gap-5"
               >
-                {/* Big quote icon */}
                 <Quote size={36} className="text-orange-100 absolute top-6 left-6" fill="currentColor" />
-
-                {/* Stars */}
                 <div className="flex gap-1 text-yellow-400">
-                  {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
+                  {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" className={s <= (t.rating || 5) ? "" : "opacity-30"} />)}
                 </div>
-
                 <p className="text-slate-700 text-base leading-relaxed relative z-10">
                   "{t.text}"
                 </p>
-
                 <div className="flex items-center gap-4 pt-2 border-t border-slate-100 mt-auto">
                   <div className="w-12 h-12 rounded-full flex items-center justify-center text-orange-600 font-black text-lg"
                     style={{ background: "linear-gradient(135deg,#FED7AA,#FEF3C7)" }}>
@@ -448,6 +386,7 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
