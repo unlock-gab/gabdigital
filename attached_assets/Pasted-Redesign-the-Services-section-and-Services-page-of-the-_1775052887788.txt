@@ -1,0 +1,152 @@
+Redesign the Services section and Services page of the Gab Digital website because the current service boxes are not visually attractive.
+
+CURRENT PROBLEMS TO FIX:
+- service boxes look empty and plain
+- large blank area on the left side of each service box
+- placeholder visual area is ugly and useless
+- colors feel washed out and not premium
+- cards do not feel modern or high-end
+- the current light gray / pale background combination is not beautiful
+- weak contrast
+- not enough visual depth
+- service layout feels unbalanced
+- overall presentation is not elegant
+
+GOAL:
+Completely redesign the service cards and service detail sections to look premium, modern, elegant, and visually rich.
+
+IMPORTANT:
+Do not keep the current giant empty visual box on the left.
+Replace it with a better layout and better visual design.
+
+NEW DESIGN DIRECTION:
+Create a premium modern agency-style service layout with:
+- beautiful white cards
+- soft shadows
+- subtle borders
+- better spacing
+- stronger typography
+- cleaner alignment
+- better button design
+- more polished icon treatment
+- improved visual hierarchy
+
+NEW COLOR SYSTEM:
+Use a cleaner and more premium palette:
+- page background: #F8FAFC
+- card background: #FFFFFF
+- primary text: #0F172A
+- secondary text: #475569
+- accent orange: #F97316
+- dark navy: #1E293B
+- border: #E2E8F0
+
+Make the colors feel elegant, bright, and premium.
+Avoid muddy pale gray combinations.
+Avoid making the page feel dull.
+
+SERVICES PAGE HERO:
+Redesign the top hero section of the Services page:
+- strong heading
+- elegant subtitle
+- cleaner spacing
+- better visual balance
+- subtle background gradient or glow
+- premium section separation
+
+SERVICE BOXES:
+Redesign every service detail box.
+
+Instead of the current layout, use one of these better approaches:
+Option A:
+- left side: real service image / illustration / premium visual thumbnail
+- right side: title, description, bullet points, CTA button
+
+Option B:
+- split card layout with image block and content block
+- cleaner ratio and no empty placeholder area
+
+Option C:
+- stacked premium card layout with visual at top and content below on smaller screens
+
+VERY IMPORTANT:
+The visual side must not look empty.
+If real images are not available, use:
+- elegant gradient panel
+- abstract shapes
+- icon cluster
+- professional illustration
+- subtle pattern
+But it must look intentional and beautiful.
+
+SERVICE CARD CONTENT:
+Each service block should include:
+- elegant icon badge
+- service title
+- short intro
+- bullet list of included items
+- CTA button
+- optional small tag or label
+
+VISUAL STYLE OF THE SERVICE CARDS:
+- rounded corners (large but elegant)
+- soft shadow
+- premium border
+- hover lift effect
+- subtle orange highlight on hover
+- cleaner icon container
+- better spacing between bullets
+- stronger typography hierarchy
+
+BUTTONS:
+Improve service buttons:
+- premium orange button
+- cleaner shape
+- better hover effect
+- subtle shadow
+- consistent padding
+
+LAYOUT IMPROVEMENTS:
+- reduce unnecessary empty space
+- improve proportions between image and text
+- use a more balanced grid
+- maintain excellent RTL alignment for Arabic
+- make the service details easier to scan
+
+ARABIC DESIGN QUALITY:
+- improve Arabic readability
+- better line-height
+- better heading sizes
+- cleaner bullet spacing
+- modern Arabic visual hierarchy
+- more premium alignment
+
+SECTION BACKGROUNDS:
+Use alternating refined backgrounds if needed:
+- white
+- very light gray
+- subtle gradient section divider
+
+Do not let all sections blend together.
+
+ICONS / IMAGES:
+- use more elegant icon containers
+- if using icons, make them smaller and more refined
+- if using images, frame them beautifully
+- avoid generic empty placeholder blocks
+
+ANIMATIONS:
+- subtle fade-up animation
+- hover lift on cards
+- button hover transitions
+- maybe slight image zoom
+Keep it elegant and smooth, not too much.
+
+RESPONSIVENESS:
+- must look beautiful on desktop
+- must also adapt well on tablet and mobile
+- stacked layout on mobile should still look premium
+
+DELIVERABLE:
+Refactor the Services page and service content blocks into a much more beautiful premium design with better colors, better card styling, better spacing, stronger contrast, and more attractive service presentation.
+The result must feel like a real luxury digital agency website, not a basic template.
