@@ -195,7 +195,7 @@ export default function Contact() {
               </div>
               <h3 className="text-2xl md:text-3xl font-black mb-4">مساعدة في الاشتراكات الرسمية للأدوات الرقمية</h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                 هل تواجه صعوبة في الاشتراك بالأدوات الرقمية الأساسية لعملك (مثل Canva Pro، باقة Adobe Creative Cloud، أو غيرها) بسبب عدم توفر وسائل دفع دولية؟ نحن في جاب ديجيتال نوفر خدمة المساعدة في تفعيل الاشتراكات الرسمية والقانونية لعملائنا بالدينار الجزائري لتسهيل عملهم.
+                 هل تواجه صعوبة في الاشتراك بالأدوات الرقمية الأساسية لعملك (مثل Canva Pro، باقة Adobe Creative Cloud، أو غيرها) بسبب عدم توفر وسائل دفع دولية؟ نحن في GAB Digital نوفر خدمة المساعدة في تفعيل الاشتراكات الرسمية والقانونية لعملائنا بالدينار الجزائري لتسهيل عملهم.
               </p>
               <Button variant="secondary" className="font-bold rounded-full" onClick={() => window.open('https://wa.me/213555555555', '_blank')}>
                  استفسر عن الخدمة عبر واتساب

@@ -83,7 +83,7 @@ export default function Academy() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-black mb-6"
           >
-            أكاديمية جاب — <span className="text-primary">أتقن المهارات الرقمية</span>
+            أكاديمية GAB — <span className="text-primary">أتقن المهارات الرقمية</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

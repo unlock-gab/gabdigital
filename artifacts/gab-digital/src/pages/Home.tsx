@@ -53,7 +53,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-5xl md:text-7xl font-black mb-6 leading-tight"
             >
-              حوّل تواجدك الرقمي مع <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary to-orange-400">جاب ديجيتال</span>
+              حوّل تواجدك الرقمي مع <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary to-orange-400">GAB Digital</span>
             </motion.h1>
 
             <motion.p 
@@ -163,7 +163,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">لماذا <span className="text-primary">جاب ديجيتال؟</span></h2>
+              <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">لماذا <span className="text-primary">GAB Digital؟</span></h2>
               <p className="text-lg text-muted-foreground mb-10">
                 نحن لا نكتفي بتقديم الخدمات، بل نصبح شركاء نجاحك. نجمع بين الإبداع، التكنولوجيا، واستراتيجيات التسويق الحديثة لنقدم لك نتائج ملموسة.
               </p>

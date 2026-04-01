@@ -10,8 +10,8 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/">
-              <span className="text-2xl font-black text-foreground cursor-pointer flex items-center gap-1 mb-4">
-                جاب <span className="text-primary">ديجيتال</span>
+              <span dir="ltr" className="text-2xl font-black text-foreground cursor-pointer flex items-center gap-1 mb-4">
+                GAB <span className="text-primary">Digital</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -86,7 +86,7 @@ export function Footer() {
 
         <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground text-center md:text-right">
-            &copy; {new Date().getFullYear()} جاب ديجيتال. جميع الحقوق محفوظة.
+            &copy; {new Date().getFullYear()} GAB Digital. جميع الحقوق محفوظة.
           </p>
           <div className="flex gap-4 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">سياسة الخصوصية</a>

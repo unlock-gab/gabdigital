@@ -38,8 +38,8 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <Link href="/">
-            <span className="text-2xl font-black text-foreground cursor-pointer flex items-center gap-1 group" data-testid="link-logo">
-              جاب <span className="text-primary transition-transform group-hover:scale-110 duration-300">ديجيتال</span>
+            <span dir="ltr" className="text-2xl font-black text-foreground cursor-pointer flex items-center gap-1 group" data-testid="link-logo">
+              GAB <span className="text-primary transition-transform group-hover:scale-110 duration-300">Digital</span>
             </span>
           </Link>
 
