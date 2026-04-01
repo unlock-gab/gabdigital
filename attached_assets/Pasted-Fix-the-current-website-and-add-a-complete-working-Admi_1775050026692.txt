@@ -1,0 +1,313 @@
+Fix the current website and add a complete working Admin Dashboard for Gab Digital.
+
+IMPORTANT:
+Right now the route /admin shows a 404 Page Not Found.
+You must fix this by creating a real /admin page and connecting it properly in the router.
+
+GOAL:
+Create a full admin panel that can manage the entire website content from one place.
+
+GENERAL REQUIREMENTS:
+- The /admin route must exist and work
+- Add it correctly to the router
+- Add a separate admin layout
+- Make the admin dashboard responsive, clean, modern, and professional
+- Use the same premium visual identity as the main website
+- Keep the admin interface simple, elegant, and easy to use
+- Add sidebar navigation for admin
+- Add topbar/header for admin
+- Add cards, tables, forms, modals, and edit/delete actions
+- Use React + Tailwind CSS
+- If the project uses React Router, make sure /admin and all subroutes are registered correctly
+- No broken routes
+- No placeholder admin page
+- Build real CRUD-ready UI structure
+
+ADMIN PANEL STRUCTURE:
+Create a full dashboard with these sections:
+
+1) Dashboard Home
+- Summary cards:
+  - Total Services
+  - Total Products
+  - Total Courses
+  - Total Portfolio Projects
+  - Total Testimonials
+  - Total Contact Requests
+  - Total Project Requests
+- Recent activity section
+- Quick action buttons
+
+2) Services Management
+Admin can:
+- View all services
+- Add new service
+- Edit service
+- Delete service
+- Organize by category
+
+Service fields:
+- Title
+- Category
+- Short description
+- Full description
+- Icon or image
+- Featured or not
+- Display order
+
+Service categories:
+- Social Media & Content
+- Creative Production
+- Web & E-commerce
+- Paid Ads & Performance
+- Digital Marketing
+- Printing & Branding
+- Courses & Training
+
+3) Portfolio / Our Work Management
+Admin can:
+- Add project
+- Edit project
+- Delete project
+- Mark featured projects
+- Upload preview image
+- Add optional demo/live link
+
+Project fields:
+- Title
+- Category
+- Short description
+- Full description
+- Preview image
+- Demo URL
+- Featured
+- Tags
+
+Portfolio categories:
+- Websites
+- Ads
+- Branding
+- Content
+- Video
+
+4) Digital Products Management
+Admin can:
+- Add digital product
+- Edit digital product
+- Delete digital product
+- Set category
+- Set price
+- Mark featured products
+
+Product fields:
+- Product name
+- Category
+- Short description
+- Full description
+- Thumbnail/image
+- Price
+- Old price (optional)
+- Featured
+- Download file URL or external link
+- Tags
+
+Digital product categories:
+- Templates
+- Marketing Resources
+- Creative Assets
+- Learning Materials
+- Business Packs
+
+5) Courses Management
+Admin can:
+- Add course
+- Edit course
+- Delete course
+- Mark featured course
+
+Course fields:
+- Course title
+- Short description
+- Full description
+- Image
+- Level
+- Duration
+- Price
+- Featured
+- Learning path / track
+- CTA link
+
+Learning paths:
+- Social Media Manager Path
+- Media Buyer Path
+- Video Editor Path
+- Freelancer Starter Path
+
+6) Testimonials Management
+Admin can:
+- Add testimonial
+- Edit testimonial
+- Delete testimonial
+
+Fields:
+- Client name
+- Business name
+- Testimonial text
+- Client image (optional)
+- Rating
+- Service used
+
+7) Contact Messages Management
+Admin can:
+- View all contact form submissions
+- View message details
+- Delete messages
+- Mark as read/unread
+
+Fields to display:
+- Name
+- Email
+- Phone
+- Subject
+- Message
+- Date
+- Status
+
+8) Project Requests Management
+Admin can:
+- View all “Start a Project” form submissions
+- View full details
+- Delete requests
+- Mark as reviewed
+
+Fields:
+- Full name
+- Email
+- Phone number
+- Business/activity type
+- Requested service
+- Budget
+- Project description
+- Website/social links
+- Preferred start date
+- Date
+- Status
+
+9) Site Settings
+Create a settings page where admin can manage:
+- Website title
+- Hero title
+- Hero subtitle
+- About section content
+- Contact email
+- Phone number
+- WhatsApp link
+- Instagram link
+- Footer text
+- Logo text
+- Brand colors if possible
+
+Use this Instagram link:
+https://www.instagram.com/digital.gab16
+
+10) FAQ Management
+Admin can:
+- Add FAQ
+- Edit FAQ
+- Delete FAQ
+
+Fields:
+- Question
+- Answer
+- Category
+
+11) Official Subscription Assistance Section Management
+Admin can manage the content of the official subscription assistance section:
+- Section title
+- Description
+- Supported tools
+- Service cards
+- CTA buttons
+
+IMPORTANT:
+Present it professionally as setup/official subscription assistance, not shady account selling.
+
+ROUTING REQUIREMENTS:
+Make sure these routes work correctly:
+- /admin
+- /admin/services
+- /admin/portfolio
+- /admin/products
+- /admin/courses
+- /admin/testimonials
+- /admin/messages
+- /admin/project-requests
+- /admin/settings
+- /admin/faq
+
+Also keep the main public website routes working.
+
+DATA HANDLING:
+If backend/database is not fully connected yet:
+- Create a clean mock data layer or local state management
+- Structure everything so it is easy to connect later to a real backend
+- Use reusable data objects and components
+- Make the admin panel functional in UI and logic
+
+UI/UX REQUIREMENTS:
+- Beautiful and premium admin design
+- Dark elegant sidebar
+- Clean content area
+- Responsive tables
+- Nice forms
+- Modern buttons
+- Good spacing
+- Rounded cards
+- Hover states
+- Search and filter where useful
+- Empty states if no data
+- Confirmation dialogs before delete
+- Toast notifications for add/edit/delete success
+
+AUTH / ACCESS:
+Add a simple admin authentication structure:
+- Admin login page at /admin/login
+- Protect /admin routes
+- If not logged in, redirect to /admin/login
+- Use a simple placeholder auth system for now if needed
+- Add logout button
+
+ADMIN LOGIN PAGE:
+Create a separate beautiful admin login page with:
+- Email field
+- Password field
+- Login button
+- Modern branded design
+- Matching Gab Digital colors
+
+IMPORTANT FIXES:
+- Fix the current missing admin page error
+- Register all admin routes correctly
+- Do not leave any route broken
+- Do not use a generic placeholder 404 inside admin
+- Make the admin dashboard actually navigable
+
+EXTRA:
+- Add sidebar icons
+- Add breadcrumbs
+- Add dashboard analytics cards
+- Add quick stats
+- Add reusable form components
+- Add reusable table components
+- Add reusable section headers
+
+DELIVERABLE:
+Return the full updated codebase with:
+- working /admin page
+- working admin subpages
+- proper routing
+- protected admin routes
+- modern admin layout
+- content management structure for the whole site
+
+The result must feel like a real professional CMS-style admin dashboard for Gab Digital.
