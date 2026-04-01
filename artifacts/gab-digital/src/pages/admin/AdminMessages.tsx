@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +12,7 @@ import { Trash2, Search, Eye, Mail, Phone, Calendar } from "lucide-react";
 
 export default function AdminMessages() {
   const { toast } = useToast();
-  const [messages, setMessages] = useState<ContactMessage[]>(mockMessages);
+  const [messages, setMessages] = useLocalStorage<ContactMessage[]>('admin_messages', mockMessages);
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<ContactMessage | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

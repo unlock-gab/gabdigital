@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +21,7 @@ const levelColors: Record<string, string> = { Beginner: "bg-green-500/20 text-gr
 
 export default function AdminCourses() {
   const { toast } = useToast();
-  const [courses, setCourses] = useState<Course[]>(mockCourses);
+  const [courses, setCourses] = useLocalStorage<Course[]>('admin_courses', mockCourses);
   const [search, setSearch] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

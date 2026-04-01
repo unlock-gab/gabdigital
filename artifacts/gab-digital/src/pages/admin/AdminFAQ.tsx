@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +15,7 @@ const emptyForm: Omit<FAQ, "id"> = { question: "", answer: "", category: "" };
 
 export default function AdminFAQ() {
   const { toast } = useToast();
-  const [faqs, setFaqs] = useState<FAQ[]>(mockFAQs);
+  const [faqs, setFaqs] = useLocalStorage<FAQ[]>('admin_faqs', mockFAQs);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

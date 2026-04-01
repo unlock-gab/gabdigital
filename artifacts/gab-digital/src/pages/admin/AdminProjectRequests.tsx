@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +12,7 @@ import { Trash2, Search, Eye, Mail, Phone, Calendar, Globe, CheckCircle } from "
 
 export default function AdminProjectRequests() {
   const { toast } = useToast();
-  const [requests, setRequests] = useState<ProjectRequest[]>(mockProjectRequests);
+  const [requests, setRequests] = useLocalStorage<ProjectRequest[]>('admin_project_requests', mockProjectRequests);
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<ProjectRequest | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

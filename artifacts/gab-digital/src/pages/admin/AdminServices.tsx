@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +19,7 @@ const emptyForm: Omit<Service, "id"> = { title: "", category: CATEGORIES[0], sho
 
 export default function AdminServices() {
   const { toast } = useToast();
-  const [services, setServices] = useState<Service[]>(mockServices);
+  const [services, setServices] = useLocalStorage<Service[]>('admin_services', mockServices);
   const [search, setSearch] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

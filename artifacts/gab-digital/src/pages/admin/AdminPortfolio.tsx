@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +19,7 @@ const emptyForm: Omit<PortfolioProject, "id"> = { title: "", category: CATEGORIE
 
 export default function AdminPortfolio() {
   const { toast } = useToast();
-  const [projects, setProjects] = useState<PortfolioProject[]>(mockPortfolio);
+  const [projects, setProjects] = useLocalStorage<PortfolioProject[]>('admin_portfolio', mockPortfolio);
   const [search, setSearch] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);

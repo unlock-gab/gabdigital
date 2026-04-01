@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,7 +24,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function AdminTestimonials() {
   const { toast } = useToast();
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(mockTestimonials);
+  const [testimonials, setTestimonials] = useLocalStorage<Testimonial[]>('admin_testimonials', mockTestimonials);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
