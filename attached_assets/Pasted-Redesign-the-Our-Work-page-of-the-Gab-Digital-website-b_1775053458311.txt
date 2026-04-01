@@ -1,0 +1,194 @@
+Redesign the "Our Work / أعمالنا" page of the Gab Digital website because the current portfolio page is not modern enough, not visually impressive, and not persuasive.
+
+CURRENT PROBLEMS:
+- the portfolio cards look basic and generic
+- the page feels like a simple image gallery, not a premium agency portfolio
+- the design is not modern enough
+- the page lacks visual excitement
+- the layout is too standard and not convincing
+- the project cards do not feel high-end
+- the filter buttons are too plain
+- the hero section is not impressive enough
+- there is not enough animation and visual storytelling
+- the portfolio does not showcase the agency work in a premium, luxurious, agency-style way
+
+GOAL:
+Transform the portfolio page into a stunning, modern, premium "case studies showcase" page that looks like a high-end digital agency website.
+
+MAIN DESIGN DIRECTION:
+The page should feel:
+- modern
+- premium
+- elegant
+- creative
+- high-converting
+- visually rich
+- smooth and animated
+- more like elite agency portfolio websites
+
+IMPORTANT:
+Do not keep the current gallery-like design.
+This should no longer feel like a simple grid of images.
+It should feel like curated premium agency work.
+
+REDESIGN THE PAGE WITH THESE IMPROVEMENTS:
+
+1) HERO SECTION
+Create a much stronger hero section for the portfolio page:
+- bold premium Arabic heading
+- elegant subtitle
+- refined spacing
+- subtle gradient/glow background
+- decorative abstract elements or soft shapes
+- motion effects
+- more impressive typography
+- premium visual hierarchy
+
+2) FILTER SECTION
+Redesign the category filters:
+- make them more modern and stylish
+- pill buttons with better active state
+- smooth hover and active animations
+- cleaner spacing
+- more premium visual style
+- maybe add an animated underline or glow for active filter
+
+Categories:
+- الكل
+- مواقع
+- إعلانات
+- هوية بصرية
+- محتوى
+- فيديو
+
+3) PORTFOLIO CARD REDESIGN
+Completely redesign portfolio cards.
+Each card should feel like a premium case study card.
+
+Each card should include:
+- large beautiful image
+- elegant category badge
+- project title
+- short result-focused description
+- CTA button
+- subtle project metadata if useful
+
+Card style:
+- premium white or slightly tinted card background
+- soft elegant shadow
+- subtle border
+- large rounded corners
+- hover lift effect
+- image zoom on hover
+- smooth overlay animation
+- more depth and polish
+
+4) IMAGE PRESENTATION
+Improve portfolio image presentation:
+- better aspect ratios
+- cleaner cropping
+- image overlay on hover
+- optional dark gradient overlay
+- elegant tag placement
+- premium framing
+- do not make images look flat or pasted
+
+5) MAKE IT FEEL LIKE CASE STUDIES
+Instead of just showing project title and simple text, make the projects feel more professional.
+
+Add optional content structure like:
+- project name
+- project type/category
+- short objective
+- short result or impact
+- CTA like:
+  - عرض المشروع
+  - عرض التفاصيل
+  - اكتشف الدراسة
+
+The portfolio must feel more persuasive and business-oriented.
+
+6) ANIMATIONS
+Add premium animations:
+- scroll reveal animations
+- staggered card entrance
+- smooth hover lift
+- image zoom
+- overlay fade-in
+- button hover transitions
+- filter transition animation when switching categories
+- subtle page intro animation
+
+Animations should feel modern and elegant, not excessive.
+
+7) LAYOUT IMPROVEMENTS
+Improve the overall composition:
+- better spacing between cards
+- stronger alignment
+- more breathing room
+- cleaner section rhythm
+- maybe mix card sizes slightly if it looks good
+- or keep a polished grid with excellent spacing
+
+Possible layout options:
+Option A:
+- premium 3-column grid with strong hover effects
+Option B:
+- alternating featured projects + smaller cards
+Option C:
+- masonry-inspired premium portfolio layout if done cleanly
+
+Choose the option that feels most premium and modern.
+
+8) COLOR / STYLE
+Use a premium agency color system:
+- off-white / soft gray page background
+- white cards
+- dark navy text
+- premium orange accent
+- subtle muted secondary tones
+- elegant contrast
+- no dull or washed-out feeling
+
+Suggested palette:
+- background: #F8FAFC
+- cards: #FFFFFF
+- primary text: #0F172A
+- secondary text: #475569
+- accent orange: #F97316
+- dark accent: #1E293B
+- border: #E2E8F0
+
+9) RTL / ARABIC QUALITY
+Ensure the Arabic design looks polished:
+- proper RTL alignment
+- premium Arabic typography
+- better line height
+- stronger heading scale
+- balanced spacing
+- text should feel modern and luxurious
+
+10) CTA / DETAIL BUTTONS
+Redesign project buttons:
+- make them more premium
+- better size and spacing
+- subtle icon
+- nicer hover effect
+- more elegant border or filled style
+
+11) OPTIONAL PREMIUM ENHANCEMENTS
+If possible, add:
+- featured project section at the top
+- stats or highlights under hero
+- mini case study modal or detail preview
+- smooth transitions between filter states
+- animated section divider
+- spotlight hover effect on cards
+
+IMPORTANT VISUAL INSTRUCTION:
+The final page should look significantly better than the current one.
+I want a noticeable redesign, not a small update.
+It should feel like a real premium agency portfolio, visually impressive and convincing.
+
+DELIVERABLE:
+Completely redesign the portfolio / أعمالنا page with a more modern, premium, animated, case-study-inspired layout and much better visuals, spacing, filters, project cards, and hover animations.
