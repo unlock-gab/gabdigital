@@ -8,7 +8,7 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.base.json tsconfig
 COPY lib/ ./lib/
 COPY artifacts/gab-digital/ ./artifacts/gab-digital/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 ENV NODE_ENV=production
 ENV BASE_PATH=/
