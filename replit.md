@@ -67,12 +67,17 @@ Express 5 API server. Routes live in `src/routes/` and use `@workspace/api-zod` 
 Database layer using Drizzle ORM with PostgreSQL. Exports a Drizzle client instance and schema models.
 
 - `src/index.ts` — creates a `Pool` + Drizzle instance, exports schema
-- `src/schema/index.ts` — barrel re-export of all models
-- `src/schema/<modelname>.ts` — table definitions with `drizzle-zod` insert schemas (no models definitions exist right now)
-- `drizzle.config.ts` — Drizzle Kit config (requires `DATABASE_URL`, automatically provided by Replit)
+- `src/schema/index.ts` — defines all tables: `site_data`, `contact_messages`, `project_requests`
+- `drizzle.config.ts` — Drizzle Kit config (requires `DATABASE_URL`)
 - Exports: `.` (pool, db, schema), `./schema` (schema only)
+- `DATABASE_URL` optional in dev — server starts without it (DB ops return 500 gracefully)
 
-Production migrations are handled by Replit when publishing. In development, we just use `pnpm --filter @workspace/db run push`, and we fallback to `pnpm --filter @workspace/db run push-force`.
+**Tables:**
+- `site_data (key TEXT PK, value JSONB)` — CMS content from admin (all localStorage keys)
+- `contact_messages` — structured table for public contact form submissions
+- `project_requests` — structured table for StartProject form submissions
+
+**Migrations:** run automatically on api-server startup via raw `CREATE TABLE IF NOT EXISTS` SQL (no drizzle-kit push required at runtime).
 
 ### `lib/api-spec` (`@workspace/api-spec`)
 
@@ -98,7 +103,9 @@ Premium Arabic-language (RTL) digital marketing agency website for **GAB Digital
 - **Stack**: React + Vite + TypeScript + Tailwind CSS + shadcn/ui
 - **Language**: Arabic only — `lang="ar" dir="rtl"` on `<html>`. Brand name "GAB Digital" always in `dir="ltr"`.
 - **Font**: Cairo Google Fonts — `@import` first line in `index.css`
-- **Data layer**: `localStorage` as CMS — admin writes → public site reads in real-time (no backend required)
+- **Data layer**: Hybrid — `localStorage` (fast UX) + PostgreSQL (persistence). `useLocalStorage` auto-syncs with `/api/site-data/:key` (upsert on write, fetch on mount).
+- **Contact/Project forms**: POST directly to `/api/contact-messages` and `/api/project-requests`.
+- **Admin messages/requests**: Fetch live from API (real-time DB reads).
 - **Admin credentials**: admin@gabdigital.com / admin123 (localStorage auth)
 - **Branding**: Dark navy (`#0B1120`) + Orange (`#F97316`) palette
 - **Instagram**: https://www.instagram.com/digital.gab16

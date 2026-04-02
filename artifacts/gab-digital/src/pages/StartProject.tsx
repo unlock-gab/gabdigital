@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Send, CheckCircle } from "lucide-react";
+import { postProjectRequest } from "@/lib/api";
 
 const formSchema = z.object({
   fullName: z.string().min(3, "الاسم يجب أن يكون 3 أحرف على الأقل"),
@@ -42,18 +43,23 @@ export default function StartProject() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Here we would normally send data to API
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitted(true);
-      toast({
-        title: "تم استلام طلبك بنجاح!",
-        description: "سيقوم فريقنا بدراسة طلبك والتواصل معك في أقرب وقت.",
-      });
-    }, 1000);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await postProjectRequest({
+      fullName: values.fullName,
+      email: values.email,
+      phone: values.phone,
+      businessType: values.businessType,
+      requestedService: values.serviceRequired,
+      budget: values.budget,
+      description: values.description,
+      websiteLink: values.links ?? "",
+      preferredStartDate: values.startDate,
+    });
+    setIsSubmitted(true);
+    toast({
+      title: "تم استلام طلبك بنجاح!",
+      description: "سيقوم فريقنا بدراسة طلبك والتواصل معك في أقرب وقت.",
+    });
   }
 
   if (isSubmitted) {

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail, Instagram, Send, HelpCircle, ShieldCheck } from "lucide-react";
+import { postContactMessage } from "@/lib/api";
 
 const formSchema = z.object({
   name: z.string().min(3, "الاسم مطلوب"),
@@ -27,8 +28,12 @@ export default function Contact() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await postContactMessage({
+      name: values.name,
+      email: values.email,
+      message: values.message,
+    });
     toast({
       title: "تم إرسال رسالتك",
       description: "شكراً لتواصلك معنا، سنرد عليك في أقرب وقت.",
