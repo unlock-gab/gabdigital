@@ -108,71 +108,58 @@ export default function Services() {
                 <motion.div key={cat.id} {...inView(i * 0.07)}
                   className="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
 
-                  {/* ── Visual Header ── fixed 16:9 ratio, same for every card ── */}
-                  <div className="relative w-full overflow-hidden" style={{ paddingTop: "56.25%" }}>
-                    {/* All content sits inside this absolute-fill layer */}
-                    <div className="absolute inset-0 flex items-center justify-center">
+                  {/* ── Visual Header ── fixed height, image fully visible ── */}
+                  <div className="relative w-full h-[220px] md:h-[300px] overflow-hidden flex items-center justify-center">
 
-                      {cat.imageUrl ? (
-                        /* ── IMAGE MODE ── */
-                        <>
-                          <img
-                            src={cat.imageUrl}
-                            alt={cat.title}
-                            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
-                          <div className="absolute inset-0 opacity-20"
-                            style={{ background: `linear-gradient(135deg, ${palette.glowColor}, transparent)` }} />
-                          {/* Frosted icon — only when showIcon is ON */}
-                          {(cat.showIcon ?? true) && (
-                            <div className="relative z-10">
-                              <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                                style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.28)" }}>
-                                <Icon size={26} color="#ffffff" />
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        /* ── NO IMAGE — gradient fallback ── */
-                        <>
-                          <div className={`absolute inset-0 bg-gradient-to-br ${palette.visualGradient}`} />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-40 h-40 rounded-full blur-2xl opacity-40" style={{ background: palette.glowColor }} />
-                          </div>
-                          <div className="absolute inset-0 opacity-[0.06]"
-                            style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "20px 20px" }} />
-                          {/* Icon shown only when showIcon is ON (or default) */}
-                          {(cat.showIcon ?? true) && (
-                            <div className="relative z-10">
-                              <div className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
-                                style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)" }}>
-                                <Icon size={36} color={palette.accentColor} />
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      )}
-
-                      {/* Featured badge — top start (right in RTL) */}
-                      {cat.isFeatured && (
-                        <div className="absolute top-3 right-3 z-20">
-                          <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold"
-                            style={{ background: "rgba(0,0,0,0.50)", color: "#FCD34D", border: "1px solid rgba(255,205,61,0.3)", backdropFilter: "blur(8px)" }}>
-                            <Star size={9} fill="currentColor" />
-                            مميز
-                          </span>
+                    {cat.imageUrl ? (
+                      /* ── IMAGE MODE — contain so full image is always visible ── */
+                      <>
+                        {/* subtle neutral bg behind transparent areas of contain */}
+                        <div className="absolute inset-0 bg-slate-100" />
+                        <img
+                          src={cat.imageUrl}
+                          alt={cat.title}
+                          className="relative z-10 w-full h-full object-contain object-center"
+                        />
+                        {/* badges sit above image */}
+                      </>
+                    ) : (
+                      /* ── NO IMAGE — gradient fallback ── */
+                      <>
+                        <div className={`absolute inset-0 bg-gradient-to-br ${palette.visualGradient}`} />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-40 h-40 rounded-full blur-2xl opacity-40" style={{ background: palette.glowColor }} />
                         </div>
-                      )}
+                        <div className="absolute inset-0 opacity-[0.06]"
+                          style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "20px 20px" }} />
+                        {(cat.showIcon ?? true) && (
+                          <div className="relative z-10">
+                            <div className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                              style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                              <Icon size={36} color={palette.accentColor} />
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
 
-                      {/* Count badge — top end (left in RTL) */}
-                      <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full text-xs font-bold text-white"
-                        style={{ background: "rgba(0,0,0,0.50)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.12)" }}>
-                        {count} خدمة
+                    {/* Featured badge */}
+                    {cat.isFeatured && (
+                      <div className="absolute top-3 right-3 z-20">
+                        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold"
+                          style={{ background: "rgba(0,0,0,0.50)", color: "#FCD34D", border: "1px solid rgba(255,205,61,0.3)", backdropFilter: "blur(8px)" }}>
+                          <Star size={9} fill="currentColor" />
+                          مميز
+                        </span>
                       </div>
+                    )}
 
+                    {/* Count badge */}
+                    <div className="absolute top-3 left-3 z-20 px-2.5 py-1 rounded-full text-xs font-bold text-white"
+                      style={{ background: "rgba(0,0,0,0.50)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.12)" }}>
+                      {count} خدمة
                     </div>
+
                   </div>
 
                   {/* Content */}
