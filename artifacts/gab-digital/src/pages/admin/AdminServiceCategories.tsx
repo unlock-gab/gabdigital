@@ -315,6 +315,7 @@ export default function AdminServiceCategories() {
                     {isCompressing ? <><Loader2 size={14} className="animate-spin" /> جاري الضغط...</> : <><Upload size={14} /> رفع صورة</>}
                   </Button>
                   <p className="text-xs text-slate-500">PNG, JPG, WEBP — يتم الضغط تلقائياً حتى 25MB</p>
+                  <p className="text-xs text-indigo-400 font-medium">الحجم المثالي: 1600 × 900 px (نسبة 16:9)</p>
                   {imagePreview && !isCompressing && (
                     <button onClick={() => { setImagePreview(""); setForm(f => ({ ...f, imageUrl: "" })); }}
                       className="text-xs text-red-400 hover:text-red-300">حذف الصورة</button>
