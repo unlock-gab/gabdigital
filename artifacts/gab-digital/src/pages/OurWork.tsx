@@ -203,8 +203,8 @@ export default function OurWork() {
                   return (
                     <motion.div key={project.id} custom={i + 1} variants={cardVariant} initial="hidden" animate="visible"
                       className="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-400 flex flex-col">
-                      <div className="relative overflow-hidden" style={{ height: 220 }}>
-                        <img src={image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <div className="relative w-full h-[200px] sm:h-[220px] md:h-[260px] overflow-hidden">
+                        <img src={image} alt={project.title} className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-10" />
                         <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full text-xs font-bold text-white" style={{ background: accent, boxShadow: `0 3px 10px ${accent}55` }}>
                           {project.category}

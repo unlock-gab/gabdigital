@@ -109,13 +109,20 @@ export default function ServiceCategoryPage() {
               <motion.div key={service.id} {...inView(i * 0.07)}
                 className="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
 
-                {/* Service image or gradient header */}
-                <div className="relative h-40 overflow-hidden"
+                {/* Service image — 16:9 banner, consistent height */}
+                <div className="relative w-full h-[200px] sm:h-[220px] md:h-[260px] overflow-hidden"
                   style={{ background: service.imageUrl ? undefined : `linear-gradient(135deg, ${palette.accentColor}22, ${palette.accentColor}44)` }}>
                   {service.imageUrl ? (
-                    <img src={service.imageUrl} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <>
+                      <img
+                        src={service.imageUrl}
+                        alt={service.title}
+                        className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    </>
                   ) : (
-                    <div className="flex items-center justify-center h-full">
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-16 h-16 rounded-xl flex items-center justify-center"
                         style={{ background: `${palette.accentColor}22`, border: `2px solid ${palette.accentColor}44` }}>
                         <Icon size={28} style={{ color: palette.accentColor }} />
@@ -123,7 +130,7 @@ export default function ServiceCategoryPage() {
                     </div>
                   )}
                   {service.isFeatured && (
-                    <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-orange-500 text-white shadow">
+                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-orange-500 text-white shadow">
                       <Star size={9} fill="currentColor" /> مميز
                     </div>
                   )}
