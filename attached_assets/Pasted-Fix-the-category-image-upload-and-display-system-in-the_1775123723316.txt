@@ -1,0 +1,81 @@
+Fix the category image upload and display system in the admin panel and public website.
+
+CURRENT PROBLEMS:
+1. Image upload fails because of the 2MB limit
+2. Even after selecting an image, the category card still shows the default icon/placeholder style
+3. I want category images to display properly and beautifully inside the cards
+4. Images should look clean, consistent, and well-fitted in the category cards
+
+MAIN GOAL:
+Make category images upload successfully and display properly on the public website.
+
+REQUIRED FIXES:
+
+1) IMAGE SIZE / UPLOAD FIX
+- Increase the allowed upload size from 2MB to at least 5MB or 8MB
+- Add automatic image compression/resizing before upload
+- If the selected image is too large, automatically optimize it instead of rejecting it immediately
+- Accept JPG, PNG, WEBP
+- Show a user-friendly message during compression/upload
+
+2) AUTO IMAGE OPTIMIZATION
+Before upload:
+- resize large images if needed
+- compress them while keeping good quality
+- preserve good visual clarity
+- then upload the optimized image
+
+3) CATEGORY CARD IMAGE DISPLAY
+On the public services/category cards:
+- show the uploaded category image instead of the default icon block
+- make the image appear as the visual cover of the card
+- use a fixed aspect ratio for all category cards
+- keep all category cards visually consistent
+
+Use image styling like:
+- width: 100%
+- height: 100%
+- object-fit: cover
+- object-position: center
+- rounded top corners if image is at the top of the card
+
+4) FALLBACK BEHAVIOR
+- If there is no uploaded image, show the icon/gradient fallback
+- But if an image exists, it must be displayed first, not the default icon block
+
+5) CARD LAYOUT IMPROVEMENT
+For category cards like "المتاجر الإلكترونية":
+- the image should fill the top visual section of the card
+- not appear tiny
+- not be distorted
+- not leave empty areas
+- keep the card premium and clean
+
+Suggested layout:
+- top section: image cover
+- bottom section: title + short description + button
+
+6) ADMIN PREVIEW FIX
+In the admin category edit modal:
+- show the uploaded image preview correctly
+- after saving, the category list and public website must reflect the saved image
+- if upload fails, show the real error clearly
+
+7) IMAGE RENDERING QUALITY
+- make the uploaded image responsive
+- ensure it looks sharp on desktop and mobile
+- avoid stretching
+- avoid awkward cropping as much as possible
+- crop from center intelligently
+
+8) DATA FLOW
+- make sure the uploaded category image is actually saved and linked to that category
+- the public website must read the saved category image from the database/storage
+- do not keep showing placeholder visuals when a real image exists
+
+9) OPTIONAL NICE TOUCH
+- add subtle dark overlay or gradient overlay if needed for better visual consistency
+- keep the overall style premium and modern
+
+DELIVERABLE:
+Fix category image upload size issues, add automatic compression/resizing, and make uploaded images display properly and beautifully in category cards on the public site.

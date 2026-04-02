@@ -11,7 +11,8 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { mockServiceCategories, type ServiceCategory } from "@/lib/adminData";
 import { reindexItems, reindexAfterDelete, getNextOrder } from "@/lib/orderUtils";
-import { Plus, Pencil, Trash2, Search, Star, Upload, Image as ImageIcon, Eye, EyeOff, ArrowUpDown } from "lucide-react";
+import { compressImage, formatBytes } from "@/lib/imageUtils";
+import { Plus, Pencil, Trash2, Search, Star, Upload, Image as ImageIcon, Eye, EyeOff, ArrowUpDown, Loader2 } from "lucide-react";
 
 const ICONS = ["share-2","camera","globe","trending-up","search","printer","graduation-cap","monitor-smartphone","video","layers","megaphone","pen-tool","book-open","bar-chart-2","target","zap","award","users","shopping-cart","layout","smartphone","mail","palette","play","star","brush","file-text","image","film","package","tag","lightbulb","settings"];
 
@@ -34,6 +35,7 @@ export default function AdminServiceCategories() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [form, setForm] = useState<Omit<ServiceCategory, "id">>(emptyForm);
   const [imagePreview, setImagePreview] = useState<string>("");
+  const [isCompressing, setIsCompressing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const sorted = [...categories].sort((a, b) => a.order - b.order);
@@ -60,20 +62,35 @@ export default function AdminServiceCategories() {
     setIsFormOpen(true);
   }
 
-  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      toast({ title: "الصورة كبيرة جداً", description: "يجب أن تكون الصورة أقل من 2MB.", variant: "destructive" });
+    // Hard cap at 25MB before compression — anything above is unreasonable
+    if (file.size > 25 * 1024 * 1024) {
+      toast({ title: "الملف كبير جداً", description: "يجب أن يكون الملف أقل من 25MB.", variant: "destructive" });
       return;
     }
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target?.result as string;
-      setImagePreview(dataUrl);
-      setForm(f => ({ ...f, imageUrl: dataUrl }));
-    };
-    reader.readAsDataURL(file);
+    setIsCompressing(true);
+    try {
+      const originalSize = formatBytes(file.size);
+      const compressed = await compressImage(file, 1400, 0.82);
+      // Rough estimate of compressed size
+      const compressedBytes = Math.round((compressed.length * 3) / 4);
+      const compressedSize = formatBytes(compressedBytes);
+      setImagePreview(compressed);
+      setForm(f => ({ ...f, imageUrl: compressed }));
+      if (file.size > 500 * 1024) {
+        toast({
+          title: "تم ضغط الصورة تلقائياً ✓",
+          description: `من ${originalSize} إلى ~${compressedSize} — جودة ممتازة.`,
+        });
+      }
+    } catch {
+      toast({ title: "خطأ في رفع الصورة", description: "تعذّر معالجة الصورة. حاول مرة أخرى.", variant: "destructive" });
+    } finally {
+      setIsCompressing(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   }
 
   function handleTitleChange(title: string) {
@@ -291,13 +308,14 @@ export default function AdminServiceCategories() {
                   )}
                 </div>
                 <div className="flex-1 space-y-2">
-                  <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+                  <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleImageUpload} />
                   <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}
+                    disabled={isCompressing}
                     className="border-slate-600 text-slate-300 hover:bg-slate-700 gap-2">
-                    <Upload size={14} /> رفع صورة
+                    {isCompressing ? <><Loader2 size={14} className="animate-spin" /> جاري الضغط...</> : <><Upload size={14} /> رفع صورة</>}
                   </Button>
-                  <p className="text-xs text-slate-500">PNG, JPG, WEBP — أقل من 2MB</p>
-                  {imagePreview && (
+                  <p className="text-xs text-slate-500">PNG, JPG, WEBP — يتم الضغط تلقائياً حتى 25MB</p>
+                  {imagePreview && !isCompressing && (
                     <button onClick={() => { setImagePreview(""); setForm(f => ({ ...f, imageUrl: "" })); }}
                       className="text-xs text-red-400 hover:text-red-300">حذف الصورة</button>
                   )}
