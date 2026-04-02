@@ -1,0 +1,68 @@
+Update the admin ordering logic for service categories and services so order values are automatically reindexed when I change one item’s order.
+
+GOAL:
+I want the ordering system to behave intelligently and automatically.
+
+REQUIRED BEHAVIOR:
+If I change the order of one category or service, the other items should automatically shift to keep the order sequence unique and continuous.
+
+EXAMPLE:
+If an item is currently at order 8 and I change it to order 2:
+- the item currently at 2 becomes 3
+- 3 becomes 4
+- 4 becomes 5
+- and so on
+until the list remains correctly ordered without duplicates
+
+This same behavior should work in reverse too:
+If an item is moved from order 2 to order 8:
+- items between 3 and 8 should shift up by one
+- 3 becomes 2
+- 4 becomes 3
+- 5 becomes 4
+- etc.
+- the moved item becomes 8
+
+APPLY THIS TO:
+1. Service Categories
+2. Services inside categories
+3. Portfolio items if ordering exists
+4. Products if ordering exists
+5. Courses if ordering exists
+
+IMPORTANT RULES:
+- No duplicate order numbers
+- No gaps in ordering
+- Order must always stay sequential: 1, 2, 3, 4, 5...
+- Reordering must happen automatically on save
+- If a new item is added without a manual order, put it at the end
+- If an item is deleted, reindex the remaining items automatically
+
+CATEGORY-SPECIFIC RULE:
+For services, ordering should be scoped inside the same category.
+Example:
+- Services inside "Social Media" should reorder only among themselves
+- not affect services in other categories
+
+ADMIN UX:
+- When admin edits the order field and saves, the system should automatically update all affected items
+- Show success feedback after reorder
+- Keep the UI updated immediately
+
+TECHNICAL REQUIREMENTS:
+- Implement this in the real database logic, not only visually
+- Make sure the stored order values are updated correctly
+- Handle edge cases:
+  - moving item higher
+  - moving item lower
+  - deleting item
+  - inserting item in the middle
+  - invalid large order numbers
+  - empty list
+
+VALIDATION:
+- If user enters an order bigger than the total count, place the item at the end
+- If user enters order less than 1, set it to 1
+
+DELIVERABLE:
+Implement automatic ordering / reindexing logic for categories and services so changing one item’s order updates all other items correctly and keeps a clean sequential order.

@@ -3,7 +3,6 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Label } from "@/components/ui/label";
@@ -11,9 +10,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { mockServiceCategories, type ServiceCategory } from "@/lib/adminData";
-import { Plus, Pencil, Trash2, Search, Star, Upload, Image as ImageIcon, Eye, EyeOff, GripVertical } from "lucide-react";
+import { reindexItems, reindexAfterDelete, getNextOrder } from "@/lib/orderUtils";
+import { Plus, Pencil, Trash2, Search, Star, Upload, Image as ImageIcon, Eye, EyeOff, ArrowUpDown } from "lucide-react";
 
-const ICONS = ["share-2", "camera", "globe", "trending-up", "search", "printer", "graduation-cap", "monitor-smartphone", "video", "layers", "megaphone", "pen-tool", "book-open", "bar-chart-2", "target", "zap", "award", "users", "shopping-cart", "layout", "smartphone", "mail", "palette", "play", "star", "brush", "file-text", "image", "film", "package", "tag", "lightbulb", "settings"];
+const ICONS = ["share-2","camera","globe","trending-up","search","printer","graduation-cap","monitor-smartphone","video","layers","megaphone","pen-tool","book-open","bar-chart-2","target","zap","award","users","shopping-cart","layout","smartphone","mail","palette","play","star","brush","file-text","image","film","package","tag","lightbulb","settings"];
 
 const emptyForm: Omit<ServiceCategory, "id"> = {
   title: "", slug: "", shortDescription: "", fullDescription: "",
@@ -36,21 +36,26 @@ export default function AdminServiceCategories() {
   const [imagePreview, setImagePreview] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const filtered = categories.filter(c =>
+  const sorted = [...categories].sort((a, b) => a.order - b.order);
+  const filtered = sorted.filter(c =>
     c.title.toLowerCase().includes(search.toLowerCase()) ||
     c.slug.toLowerCase().includes(search.toLowerCase())
   );
 
   function openAdd() {
     setEditingId(null);
-    setForm({ ...emptyForm, order: Math.max(0, ...categories.map(c => c.order)) + 1 });
+    setForm({ ...emptyForm, order: getNextOrder(categories) });
     setImagePreview("");
     setIsFormOpen(true);
   }
 
   function openEdit(cat: ServiceCategory) {
     setEditingId(cat.id);
-    setForm({ title: cat.title, slug: cat.slug, shortDescription: cat.shortDescription, fullDescription: cat.fullDescription, imageUrl: cat.imageUrl, icon: cat.icon, order: cat.order, isVisible: cat.isVisible, isFeatured: cat.isFeatured });
+    setForm({
+      title: cat.title, slug: cat.slug, shortDescription: cat.shortDescription,
+      fullDescription: cat.fullDescription, imageUrl: cat.imageUrl, icon: cat.icon,
+      order: cat.order, isVisible: cat.isVisible, isFeatured: cat.isFeatured,
+    });
     setImagePreview(cat.imageUrl);
     setIsFormOpen(true);
   }
@@ -75,6 +80,13 @@ export default function AdminServiceCategories() {
     setForm(f => ({ ...f, title, slug: editingId ? f.slug : slugify(title) }));
   }
 
+  function handleOrderChange(raw: string) {
+    const val = parseInt(raw, 10);
+    if (isNaN(val)) return;
+    const max = editingId !== null ? categories.length : categories.length + 1;
+    setForm(f => ({ ...f, order: Math.max(1, Math.min(val, max)) }));
+  }
+
   function handleSave() {
     if (!form.title.trim()) {
       toast({ title: "خطأ في التحقق", description: "العنوان مطلوب.", variant: "destructive" });
@@ -89,13 +101,29 @@ export default function AdminServiceCategories() {
       toast({ title: "خطأ في التحقق", description: "هذا الـ Slug مستخدم بالفعل.", variant: "destructive" });
       return;
     }
+
     if (editingId !== null) {
-      setCategories(prev => prev.map(c => c.id === editingId ? { ...c, ...form } : c));
-      toast({ title: "تم التحديث", description: `تم تحديث "${form.title}" بنجاح.` });
+      setCategories(prev => {
+        const oldOrder = prev.find(c => c.id === editingId)?.order ?? form.order;
+        const updated = prev.map(c => c.id === editingId ? { ...c, ...form } : c);
+        const reindexed = reindexItems(updated, editingId, form.order);
+        const orderChanged = form.order !== oldOrder;
+        return reindexed;
+      });
+      toast({
+        title: "تم التحديث ✓",
+        description: `تم تحديث "${form.title}" وإعادة ترتيب التصنيفات تلقائياً.`,
+      });
     } else {
       const newId = Math.max(0, ...categories.map(c => c.id)) + 1;
-      setCategories(prev => [...prev, { id: newId, ...form }]);
-      toast({ title: "تمت الإضافة", description: `تمت إضافة "${form.title}" بنجاح.` });
+      setCategories(prev => {
+        const allWithNew = [...prev, { id: newId, ...form }];
+        return reindexItems(allWithNew, newId, form.order);
+      });
+      toast({
+        title: "تمت الإضافة ✓",
+        description: `تمت إضافة "${form.title}" في الموضع ${form.order}.`,
+      });
     }
     setIsFormOpen(false);
   }
@@ -103,13 +131,27 @@ export default function AdminServiceCategories() {
   function handleDelete() {
     if (deleteId === null) return;
     const cat = categories.find(c => c.id === deleteId);
-    setCategories(prev => prev.filter(c => c.id !== deleteId));
-    toast({ title: "تم الحذف", description: `تم حذف "${cat?.title}".` });
+    setCategories(prev => reindexAfterDelete(prev.filter(c => c.id !== deleteId)));
+    toast({ title: "تم الحذف", description: `تم حذف "${cat?.title}" وإعادة ترقيم الترتيب.` });
     setIsDeleteOpen(false);
   }
 
   function toggleVisibility(id: number) {
     setCategories(prev => prev.map(c => c.id === id ? { ...c, isVisible: !c.isVisible } : c));
+  }
+
+  function moveUp(id: number) {
+    const cat = categories.find(c => c.id === id);
+    if (!cat || cat.order <= 1) return;
+    setCategories(prev => reindexItems(prev, id, cat.order - 1));
+    toast({ title: "تم التحريك للأعلى", description: "تم إعادة الترتيب تلقائياً." });
+  }
+
+  function moveDown(id: number) {
+    const cat = categories.find(c => c.id === id);
+    if (!cat || cat.order >= categories.length) return;
+    setCategories(prev => reindexItems(prev, id, cat.order + 1));
+    toast({ title: "تم التحريك للأسفل", description: "تم إعادة الترتيب تلقائياً." });
   }
 
   return (
@@ -119,7 +161,7 @@ export default function AdminServiceCategories() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-white">تصنيفات الخدمات</h1>
-            <p className="text-slate-400 text-sm mt-1">{categories.length} تصنيف مُضاف</p>
+            <p className="text-slate-400 text-sm mt-1">{categories.length} تصنيف — مرتّبة تلقائياً</p>
           </div>
           <Button onClick={openAdd} className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
             <Plus size={16} /> إضافة تصنيف
@@ -133,25 +175,38 @@ export default function AdminServiceCategories() {
             placeholder="بحث في التصنيفات..." className="pr-10 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500" />
         </div>
 
+        {/* Info Banner */}
+        <div className="flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-indigo-300">
+          <ArrowUpDown size={16} className="shrink-0" />
+          <span>عند تغيير الترتيب في النموذج أو استخدام أزرار الأسهم، تُعاد ترقيم بقية التصنيفات تلقائياً — بلا فجوات.</span>
+        </div>
+
         {/* Table */}
         <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-700 bg-slate-900/50">
+                  <th className="px-4 py-3 text-center text-slate-400 font-medium w-16">#</th>
                   <th className="px-4 py-3 text-right text-slate-400 font-medium">التصنيف</th>
                   <th className="px-4 py-3 text-right text-slate-400 font-medium hidden md:table-cell">الـ Slug</th>
-                  <th className="px-4 py-3 text-center text-slate-400 font-medium">الترتيب</th>
+                  <th className="px-4 py-3 text-center text-slate-400 font-medium">التحريك</th>
                   <th className="px-4 py-3 text-center text-slate-400 font-medium">الحالة</th>
                   <th className="px-4 py-3 text-center text-slate-400 font-medium">إجراءات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-700">
                 {filtered.length === 0 && (
-                  <tr><td colSpan={5} className="text-center py-12 text-slate-500">لا توجد تصنيفات</td></tr>
+                  <tr><td colSpan={6} className="text-center py-12 text-slate-500">لا توجد تصنيفات</td></tr>
                 )}
                 {filtered.map(cat => (
                   <tr key={cat.id} className="hover:bg-slate-700/30 transition-colors">
+                    {/* Order badge */}
+                    <td className="px-4 py-4 text-center">
+                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 text-white font-mono font-bold text-sm">
+                        {cat.order}
+                      </span>
+                    </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-700 flex items-center justify-center shrink-0">
@@ -173,8 +228,24 @@ export default function AdminServiceCategories() {
                     <td className="px-4 py-4 hidden md:table-cell">
                       <code className="text-xs bg-slate-900 px-2 py-1 rounded text-slate-300">{cat.slug}</code>
                     </td>
+                    {/* Move up/down buttons */}
                     <td className="px-4 py-4 text-center">
-                      <span className="text-slate-300 font-mono text-sm">{cat.order}</span>
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          onClick={() => moveUp(cat.id)}
+                          disabled={cat.order <= 1}
+                          className="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                          title="تحريك للأعلى">
+                          ▲
+                        </button>
+                        <button
+                          onClick={() => moveDown(cat.id)}
+                          disabled={cat.order >= categories.length}
+                          className="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                          title="تحريك للأسفل">
+                          ▼
+                        </button>
+                      </div>
                     </td>
                     <td className="px-4 py-4 text-center">
                       <button onClick={() => toggleVisibility(cat.id)}
@@ -268,9 +339,21 @@ export default function AdminServiceCategories() {
                 </select>
               </div>
               <div>
-                <Label className="text-slate-300 mb-1.5 block">الترتيب</Label>
-                <Input type="number" value={form.order} onChange={e => setForm(f => ({ ...f, order: +e.target.value }))}
-                  min={1} className="bg-slate-800 border-slate-700 text-white" />
+                <Label className="text-slate-300 mb-1.5 block">
+                  الترتيب
+                  <span className="text-slate-500 text-xs mr-2">
+                    (من 1 إلى {editingId !== null ? categories.length : categories.length + 1})
+                  </span>
+                </Label>
+                <Input
+                  type="number"
+                  value={form.order}
+                  onChange={e => handleOrderChange(e.target.value)}
+                  min={1}
+                  max={editingId !== null ? categories.length : categories.length + 1}
+                  className="bg-slate-800 border-slate-700 text-white"
+                />
+                <p className="text-xs text-slate-500 mt-1">العناصر الأخرى ستُزاح تلقائياً</p>
               </div>
             </div>
 
@@ -301,7 +384,7 @@ export default function AdminServiceCategories() {
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">تأكيد الحذف</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400">
-              هل أنت متأكد من حذف هذا التصنيف؟ سيتم حذف ارتباطه بالخدمات لكن الخدمات نفسها لن تُحذف.
+              هل أنت متأكد من حذف هذا التصنيف؟ سيتم إعادة ترقيم الترتيب تلقائياً.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

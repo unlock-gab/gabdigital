@@ -11,7 +11,8 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { mockServiceCategories, mockServiceItems, type ServiceCategory, type ServiceItem } from "@/lib/adminData";
-import { Plus, Pencil, Trash2, Search, Star, Upload, Image as ImageIcon, Eye, EyeOff, X } from "lucide-react";
+import { reindexItems, reindexAfterDelete, getNextOrder } from "@/lib/orderUtils";
+import { Plus, Pencil, Trash2, Search, Star, Upload, Image as ImageIcon, Eye, EyeOff, ArrowUpDown } from "lucide-react";
 
 const emptyForm: Omit<ServiceItem, "id"> = {
   categoryId: 0,
@@ -22,6 +23,28 @@ const emptyForm: Omit<ServiceItem, "id"> = {
 
 function slugify(text: string): string {
   return text.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "").replace(/-+/g, "-").replace(/^-|-$/g, "");
+}
+
+/** Reindex only the items belonging to a given categoryId, leave others untouched */
+function reindexWithinCategory(
+  allServices: ServiceItem[],
+  categoryId: number,
+  movedId: number,
+  newOrder: number
+): ServiceItem[] {
+  const inCat = allServices.filter(s => s.categoryId === categoryId);
+  const others = allServices.filter(s => s.categoryId !== categoryId);
+  return [...others, ...reindexItems(inCat, movedId, newOrder)];
+}
+
+function reindexDeleteWithinCategory(
+  allServices: ServiceItem[],
+  categoryId: number,
+  deletedId: number
+): ServiceItem[] {
+  const inCat = allServices.filter(s => s.categoryId === categoryId && s.id !== deletedId);
+  const others = allServices.filter(s => s.categoryId !== categoryId);
+  return [...others, ...reindexAfterDelete(inCat)];
 }
 
 export default function AdminServices() {
@@ -41,7 +64,16 @@ export default function AdminServices() {
   const [includedInput, setIncludedInput] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const filtered = services.filter(s => {
+  function getServicesInCat(catId: number) {
+    return services.filter(s => s.categoryId === catId);
+  }
+
+  const sorted = [...services].sort((a, b) => {
+    if (a.categoryId !== b.categoryId) return a.categoryId - b.categoryId;
+    return a.order - b.order;
+  });
+
+  const filtered = sorted.filter(s => {
     const matchSearch = s.title.toLowerCase().includes(search.toLowerCase()) ||
       s.slug.toLowerCase().includes(search.toLowerCase());
     const matchCat = filterCat === "all" || s.categoryId === +filterCat;
@@ -53,8 +85,10 @@ export default function AdminServices() {
   }
 
   function openAdd() {
+    const defaultCatId = categories[0]?.id ?? 0;
+    const catServices = getServicesInCat(defaultCatId);
     setEditingId(null);
-    setForm({ ...emptyForm, categoryId: categories[0]?.id ?? 0, order: Math.max(0, ...services.map(s => s.order)) + 1 });
+    setForm({ ...emptyForm, categoryId: defaultCatId, order: getNextOrder(catServices) });
     setImagePreview("");
     setFeaturesInput("");
     setIncludedInput("");
@@ -96,6 +130,24 @@ export default function AdminServices() {
     setForm(f => ({ ...f, title, slug: editingId ? f.slug : slugify(title) }));
   }
 
+  function handleCategoryChange(catIdStr: string) {
+    const catId = +catIdStr;
+    const catServices = editingId
+      ? services.filter(s => s.categoryId === catId && s.id !== editingId)
+      : getServicesInCat(catId);
+    setForm(f => ({ ...f, categoryId: catId, order: getNextOrder(catServices) }));
+  }
+
+  function handleOrderChange(raw: string) {
+    const val = parseInt(raw, 10);
+    if (isNaN(val)) return;
+    const catServices = editingId
+      ? services.filter(s => s.categoryId === form.categoryId)
+      : services.filter(s => s.categoryId === form.categoryId);
+    const max = editingId ? catServices.length : catServices.length + 1;
+    setForm(f => ({ ...f, order: Math.max(1, Math.min(val, Math.max(max, 1))) }));
+  }
+
   function syncFeatures() {
     setForm(f => ({ ...f, features: featuresInput.split("\n").map(s => s.trim()).filter(Boolean) }));
   }
@@ -128,12 +180,41 @@ export default function AdminServices() {
     }
 
     if (editingId !== null) {
-      setServices(prev => prev.map(s => s.id === editingId ? { ...s, ...finalForm } : s));
-      toast({ title: "تم التحديث", description: `تم تحديث "${finalForm.title}" بنجاح.` });
+      const oldSvc = services.find(s => s.id === editingId);
+      const oldCatId = oldSvc?.categoryId ?? finalForm.categoryId;
+      const categoryChanged = oldCatId !== finalForm.categoryId;
+
+      setServices(prev => {
+        let updated = prev.map(s => s.id === editingId ? { ...s, ...finalForm } : s);
+
+        if (categoryChanged) {
+          // 1. Reindex old category (without this item)
+          const oldCatItems = updated.filter(s => s.categoryId === oldCatId);
+          const reindexedOld = reindexAfterDelete(oldCatItems.filter(s => s.id !== editingId));
+          // 2. The moved item is already in new category; reindex new category
+          const newCatItems = updated.filter(s => s.categoryId === finalForm.categoryId);
+          const reindexedNew = reindexItems(newCatItems, editingId, finalForm.order);
+          const otherCats = updated.filter(s => s.categoryId !== oldCatId && s.categoryId !== finalForm.categoryId);
+          return [...otherCats, ...reindexedOld, ...reindexedNew];
+        } else {
+          return reindexWithinCategory(updated, finalForm.categoryId, editingId, finalForm.order);
+        }
+      });
+
+      toast({
+        title: "تم التحديث ✓",
+        description: `تم تحديث "${finalForm.title}" وإعادة ترتيب الخدمات في التصنيف تلقائياً.`,
+      });
     } else {
       const newId = Math.max(0, ...services.map(s => s.id)) + 1;
-      setServices(prev => [...prev, { id: newId, ...finalForm }]);
-      toast({ title: "تمت الإضافة", description: `تمت إضافة "${finalForm.title}" بنجاح.` });
+      setServices(prev => {
+        const allWithNew = [...prev, { id: newId, ...finalForm }];
+        return reindexWithinCategory(allWithNew, finalForm.categoryId, newId, finalForm.order);
+      });
+      toast({
+        title: "تمت الإضافة ✓",
+        description: `تمت إضافة "${finalForm.title}" في الموضع ${finalForm.order} داخل التصنيف.`,
+      });
     }
     setIsFormOpen(false);
   }
@@ -141,13 +222,30 @@ export default function AdminServices() {
   function handleDelete() {
     if (deleteId === null) return;
     const svc = services.find(s => s.id === deleteId);
-    setServices(prev => prev.filter(s => s.id !== deleteId));
-    toast({ title: "تم الحذف", description: `تم حذف "${svc?.title}".` });
+    const catId = svc?.categoryId ?? 0;
+    setServices(prev => reindexDeleteWithinCategory(prev, catId, deleteId));
+    toast({ title: "تم الحذف", description: `تم حذف "${svc?.title}" وإعادة ترقيم الترتيب في التصنيف.` });
     setIsDeleteOpen(false);
   }
 
   function toggleVisibility(id: number) {
     setServices(prev => prev.map(s => s.id === id ? { ...s, isVisible: !s.isVisible } : s));
+  }
+
+  function moveUp(id: number) {
+    const svc = services.find(s => s.id === id);
+    if (!svc || svc.order <= 1) return;
+    setServices(prev => reindexWithinCategory(prev, svc.categoryId, id, svc.order - 1));
+    toast({ title: "تم التحريك للأعلى", description: "تم إعادة الترتيب داخل التصنيف." });
+  }
+
+  function moveDown(id: number) {
+    const svc = services.find(s => s.id === id);
+    if (!svc) return;
+    const catCount = services.filter(s => s.categoryId === svc.categoryId).length;
+    if (svc.order >= catCount) return;
+    setServices(prev => reindexWithinCategory(prev, svc.categoryId, id, svc.order + 1));
+    toast({ title: "تم التحريك للأسفل", description: "تم إعادة الترتيب داخل التصنيف." });
   }
 
   return (
@@ -157,7 +255,7 @@ export default function AdminServices() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-white">إدارة الخدمات</h1>
-            <p className="text-slate-400 text-sm mt-1">{services.length} خدمة مُضافة</p>
+            <p className="text-slate-400 text-sm mt-1">{services.length} خدمة — الترتيب مستقل داخل كل تصنيف</p>
           </div>
           <Button onClick={openAdd} className="bg-orange-500 hover:bg-orange-600 text-white gap-2">
             <Plus size={16} /> إضافة خدمة
@@ -184,69 +282,103 @@ export default function AdminServices() {
           </Select>
         </div>
 
+        {/* Info Banner */}
+        <div className="flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-indigo-300">
+          <ArrowUpDown size={16} className="shrink-0" />
+          <span>الترتيب مستقل داخل كل تصنيف. عند تغيير الترتيب أو نقل خدمة لتصنيف آخر، تُعاد ترقيم الخدمات في كلا التصنيفين تلقائياً.</span>
+        </div>
+
         {/* Table */}
         <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-700 bg-slate-900/50">
+                  <th className="px-4 py-3 text-center text-slate-400 font-medium w-12">#</th>
                   <th className="px-4 py-3 text-right text-slate-400 font-medium">الخدمة</th>
                   <th className="px-4 py-3 text-right text-slate-400 font-medium hidden md:table-cell">التصنيف</th>
                   <th className="px-4 py-3 text-right text-slate-400 font-medium hidden lg:table-cell">الـ Slug</th>
+                  <th className="px-4 py-3 text-center text-slate-400 font-medium">التحريك</th>
                   <th className="px-4 py-3 text-center text-slate-400 font-medium">الحالة</th>
                   <th className="px-4 py-3 text-center text-slate-400 font-medium">إجراءات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-700">
                 {filtered.length === 0 && (
-                  <tr><td colSpan={5} className="text-center py-12 text-slate-500">لا توجد خدمات</td></tr>
+                  <tr><td colSpan={7} className="text-center py-12 text-slate-500">لا توجد خدمات</td></tr>
                 )}
-                {filtered.map(svc => (
-                  <tr key={svc.id} className="hover:bg-slate-700/30 transition-colors">
-                    <td className="px-4 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-700 flex items-center justify-center shrink-0">
-                          {svc.imageUrl ? (
-                            <img src={svc.imageUrl} alt={svc.title} className="w-full h-full object-cover" />
-                          ) : (
-                            <ImageIcon size={18} className="text-slate-500" />
-                          )}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-white flex items-center gap-2">
-                            {svc.title}
-                            {svc.isFeatured && <Star size={12} className="text-yellow-400" fill="currentColor" />}
+                {filtered.map(svc => {
+                  const catCount = services.filter(s => s.categoryId === svc.categoryId).length;
+                  return (
+                    <tr key={svc.id} className="hover:bg-slate-700/30 transition-colors">
+                      <td className="px-4 py-4 text-center">
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-700 text-white font-mono font-bold text-sm">
+                          {svc.order}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-700 flex items-center justify-center shrink-0">
+                            {svc.imageUrl ? (
+                              <img src={svc.imageUrl} alt={svc.title} className="w-full h-full object-cover" />
+                            ) : (
+                              <ImageIcon size={18} className="text-slate-500" />
+                            )}
                           </div>
-                          <div className="text-slate-500 text-xs mt-0.5 max-w-xs truncate">{svc.shortDescription}</div>
+                          <div>
+                            <div className="font-semibold text-white flex items-center gap-2">
+                              {svc.title}
+                              {svc.isFeatured && <Star size={12} className="text-yellow-400" fill="currentColor" />}
+                            </div>
+                            <div className="text-slate-500 text-xs mt-0.5 max-w-xs truncate">{svc.shortDescription}</div>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 hidden md:table-cell">
-                      <span className="text-xs px-2 py-1 rounded-full bg-slate-700 text-slate-300 font-medium">
-                        {getCategoryName(svc.categoryId)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 hidden lg:table-cell">
-                      <code className="text-xs bg-slate-900 px-2 py-1 rounded text-slate-300">{svc.slug}</code>
-                    </td>
-                    <td className="px-4 py-4 text-center">
-                      <button onClick={() => toggleVisibility(svc.id)}
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-colors ${svc.isVisible ? "bg-green-500/15 text-green-400 hover:bg-green-500/25" : "bg-slate-700 text-slate-400 hover:bg-slate-600"}`}>
-                        {svc.isVisible ? <><Eye size={11} /> ظاهر</> : <><EyeOff size={11} /> مخفي</>}
-                      </button>
-                    </td>
-                    <td className="px-4 py-4">
-                      <div className="flex items-center justify-center gap-2">
-                        <Button size="sm" variant="ghost" onClick={() => openEdit(svc)} className="text-slate-400 hover:text-white hover:bg-slate-700 h-8 w-8 p-0">
-                          <Pencil size={14} />
-                        </Button>
-                        <Button size="sm" variant="ghost" onClick={() => { setDeleteId(svc.id); setIsDeleteOpen(true); }} className="text-slate-400 hover:text-red-400 hover:bg-red-500/10 h-8 w-8 p-0">
-                          <Trash2 size={14} />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="px-4 py-4 hidden md:table-cell">
+                        <span className="text-xs px-2 py-1 rounded-full bg-slate-700 text-slate-300 font-medium">
+                          {getCategoryName(svc.categoryId)}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4 hidden lg:table-cell">
+                        <code className="text-xs bg-slate-900 px-2 py-1 rounded text-slate-300">{svc.slug}</code>
+                      </td>
+                      <td className="px-4 py-4 text-center">
+                        <div className="flex items-center justify-center gap-1">
+                          <button
+                            onClick={() => moveUp(svc.id)}
+                            disabled={svc.order <= 1}
+                            className="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                            title="تحريك للأعلى في التصنيف">
+                            ▲
+                          </button>
+                          <button
+                            onClick={() => moveDown(svc.id)}
+                            disabled={svc.order >= catCount}
+                            className="w-7 h-7 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-600 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                            title="تحريك للأسفل في التصنيف">
+                            ▼
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-center">
+                        <button onClick={() => toggleVisibility(svc.id)}
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-colors ${svc.isVisible ? "bg-green-500/15 text-green-400 hover:bg-green-500/25" : "bg-slate-700 text-slate-400 hover:bg-slate-600"}`}>
+                          {svc.isVisible ? <><Eye size={11} /> ظاهر</> : <><EyeOff size={11} /> مخفي</>}
+                        </button>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="flex items-center justify-center gap-2">
+                          <Button size="sm" variant="ghost" onClick={() => openEdit(svc)} className="text-slate-400 hover:text-white hover:bg-slate-700 h-8 w-8 p-0">
+                            <Pencil size={14} />
+                          </Button>
+                          <Button size="sm" variant="ghost" onClick={() => { setDeleteId(svc.id); setIsDeleteOpen(true); }} className="text-slate-400 hover:text-red-400 hover:bg-red-500/10 h-8 w-8 p-0">
+                            <Trash2 size={14} />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -290,7 +422,7 @@ export default function AdminServices() {
             {/* Category */}
             <div>
               <Label className="text-slate-300 mb-1.5 block">التصنيف *</Label>
-              <Select value={String(form.categoryId)} onValueChange={v => setForm(f => ({ ...f, categoryId: +v }))}>
+              <Select value={String(form.categoryId)} onValueChange={handleCategoryChange}>
                 <SelectTrigger className="bg-slate-800 border-slate-700 text-white">
                   <SelectValue placeholder="اختر تصنيفاً" />
                 </SelectTrigger>
@@ -357,9 +489,27 @@ export default function AdminServices() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-slate-300 mb-1.5 block">الترتيب</Label>
-                <Input type="number" value={form.order} onChange={e => setForm(f => ({ ...f, order: +e.target.value }))}
-                  min={1} className="bg-slate-800 border-slate-700 text-white" />
+                <Label className="text-slate-300 mb-1.5 block">
+                  الترتيب داخل التصنيف
+                  {form.categoryId > 0 && (
+                    <span className="text-slate-500 text-xs mr-2">
+                      ({(() => {
+                        const count = editingId
+                          ? services.filter(s => s.categoryId === form.categoryId).length
+                          : services.filter(s => s.categoryId === form.categoryId).length + 1;
+                        return `من 1 إلى ${count}`;
+                      })()})
+                    </span>
+                  )}
+                </Label>
+                <Input
+                  type="number"
+                  value={form.order}
+                  onChange={e => handleOrderChange(e.target.value)}
+                  min={1}
+                  className="bg-slate-800 border-slate-700 text-white"
+                />
+                <p className="text-xs text-slate-500 mt-1">الخدمات الأخرى في التصنيف ستُزاح تلقائياً</p>
               </div>
             </div>
 
@@ -390,7 +540,7 @@ export default function AdminServices() {
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">تأكيد الحذف</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400">
-              هل أنت متأكد من حذف هذه الخدمة؟ لا يمكن التراجع عن هذا الإجراء.
+              هل أنت متأكد من حذف هذه الخدمة؟ ستُعاد ترقيم بقية خدمات التصنيف تلقائياً.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
