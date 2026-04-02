@@ -1,0 +1,58 @@
+Update the category and service card system so icons are optional and can be fully disabled.
+
+CURRENT PROBLEM:
+Right now the cards still show the icon block/overlay even when I use real uploaded images.
+I do not want the icon to always appear on top of the image.
+
+GOAL:
+Give me full control over icons in admin:
+- either remove icons completely
+- or allow me to turn them off with an option
+- or leave the icon field empty and show no icon at all
+
+REQUIRED CHANGES:
+
+1) ADMIN OPTION
+Add a clear option in admin for categories and services:
+- Show icon on card: ON / OFF
+or
+- Enable icon: true / false
+
+2) OPTIONAL ICON FIELD
+The icon field must become optional.
+If no icon is selected, the card should not show any icon placeholder or default icon.
+
+3) NO FALLBACK ICON WHEN IMAGE EXISTS
+If a real uploaded image exists and icon display is OFF:
+- do not show the icon block
+- do not show the icon overlay
+- do not show the default icon
+- show only the image
+
+4) CARD DISPLAY LOGIC
+Use this logic:
+- If image exists and icon is OFF → show image only
+- If image exists and icon is ON → optionally show icon overlay
+- If no image exists and icon exists → show icon fallback
+- If no image and no icon → show a clean fallback background only
+
+5) ADMIN UI IMPROVEMENT
+In the admin category/service form:
+- add a toggle:
+  "Show icon on card"
+- if toggle is OFF, the selected icon should not appear on the public card
+- optionally disable the icon dropdown visually when OFF
+
+6) REMOVE DEFAULT ICON BLOCK
+The current square icon block in the center of the image area should be removed when icon display is disabled.
+I want a cleaner, image-first design.
+
+7) PUBLIC WEBSITE RESULT
+On the public cards, when I disable the icon:
+- the card should look cleaner
+- no floating icon box
+- no default icon overlay
+- just the image, title, description, and button
+
+DELIVERABLE:
+Add the ability to fully disable icons on category/service cards from admin, and remove icon overlays/placeholders when disabled.

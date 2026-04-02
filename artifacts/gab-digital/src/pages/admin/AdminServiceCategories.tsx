@@ -18,7 +18,7 @@ const ICONS = ["share-2","camera","globe","trending-up","search","printer","grad
 
 const emptyForm: Omit<ServiceCategory, "id"> = {
   title: "", slug: "", shortDescription: "", fullDescription: "",
-  imageUrl: "", icon: "layers", order: 1, isVisible: true, isFeatured: false,
+  imageUrl: "", icon: "layers", showIcon: true, order: 1, isVisible: true, isFeatured: false,
 };
 
 function slugify(text: string): string {
@@ -56,6 +56,7 @@ export default function AdminServiceCategories() {
     setForm({
       title: cat.title, slug: cat.slug, shortDescription: cat.shortDescription,
       fullDescription: cat.fullDescription, imageUrl: cat.imageUrl, icon: cat.icon,
+      showIcon: cat.showIcon ?? true,
       order: cat.order, isVisible: cat.isVisible, isFeatured: cat.isFeatured,
     });
     setImagePreview(cat.imageUrl);
@@ -353,7 +354,8 @@ export default function AdminServiceCategories() {
               <div>
                 <Label className="text-slate-300 mb-1.5 block">الأيقونة</Label>
                 <select value={form.icon} onChange={e => setForm(f => ({ ...f, icon: e.target.value }))}
-                  className="w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm">
+                  disabled={!form.showIcon}
+                  className="w-full bg-slate-800 border border-slate-700 text-white rounded-md px-3 py-2 text-sm disabled:opacity-40 disabled:cursor-not-allowed">
                   {ICONS.map(ic => <option key={ic} value={ic}>{ic}</option>)}
                 </select>
               </div>
@@ -376,7 +378,7 @@ export default function AdminServiceCategories() {
               </div>
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-6">
               <div className="flex items-center gap-3">
                 <Switch checked={form.isVisible} onCheckedChange={v => setForm(f => ({ ...f, isVisible: v }))} />
                 <Label className="text-slate-300">ظاهر على الموقع</Label>
@@ -384,6 +386,13 @@ export default function AdminServiceCategories() {
               <div className="flex items-center gap-3">
                 <Switch checked={form.isFeatured} onCheckedChange={v => setForm(f => ({ ...f, isFeatured: v }))} />
                 <Label className="text-slate-300">مميز</Label>
+              </div>
+              <div className="flex items-center gap-3">
+                <Switch checked={form.showIcon ?? true} onCheckedChange={v => setForm(f => ({ ...f, showIcon: v }))} />
+                <Label className="text-slate-300">
+                  عرض الأيقونة على البطاقة
+                  {!(form.showIcon ?? true) && <span className="mr-2 text-xs text-orange-400">(مخفية)</span>}
+                </Label>
               </div>
             </div>
           </div>

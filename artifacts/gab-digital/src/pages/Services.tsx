@@ -114,7 +114,7 @@ export default function Services() {
                     <div className="absolute inset-0 flex items-center justify-center">
 
                       {cat.imageUrl ? (
-                        /* IMAGE MODE — real photo as full cover */
+                        /* ── IMAGE MODE ── */
                         <>
                           <img
                             src={cat.imageUrl}
@@ -124,16 +124,18 @@ export default function Services() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
                           <div className="absolute inset-0 opacity-20"
                             style={{ background: `linear-gradient(135deg, ${palette.glowColor}, transparent)` }} />
-                          {/* Frosted icon on top of image */}
-                          <div className="relative z-10">
-                            <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                              style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.28)" }}>
-                              <Icon size={26} color="#ffffff" />
+                          {/* Frosted icon — only when showIcon is ON */}
+                          {(cat.showIcon ?? true) && (
+                            <div className="relative z-10">
+                              <div className="w-14 h-14 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                                style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.28)" }}>
+                                <Icon size={26} color="#ffffff" />
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </>
                       ) : (
-                        /* FALLBACK — colored gradient + centred icon */
+                        /* ── NO IMAGE — gradient fallback ── */
                         <>
                           <div className={`absolute inset-0 bg-gradient-to-br ${palette.visualGradient}`} />
                           <div className="absolute inset-0 flex items-center justify-center">
@@ -141,12 +143,15 @@ export default function Services() {
                           </div>
                           <div className="absolute inset-0 opacity-[0.06]"
                             style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "20px 20px" }} />
-                          <div className="relative z-10">
-                            <div className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
-                              style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)" }}>
-                              <Icon size={36} color={palette.accentColor} />
+                          {/* Icon shown only when showIcon is ON (or default) */}
+                          {(cat.showIcon ?? true) && (
+                            <div className="relative z-10">
+                              <div className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300"
+                                style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                                <Icon size={36} color={palette.accentColor} />
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </>
                       )}
 

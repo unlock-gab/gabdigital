@@ -98,6 +98,7 @@ export interface ServiceCategory {
   fullDescription: string;
   imageUrl: string;
   icon: string;
+  showIcon?: boolean;
   order: number;
   isVisible: boolean;
   isFeatured: boolean;
