@@ -61,7 +61,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-8 w-3 h-3 rounded-full bg-orange-500/40" />
         <div className="absolute top-1/3 right-1/3 w-2 h-2 rounded-full bg-white/20" />
 
-        <div className="container mx-auto px-4 relative z-10 text-white py-40">
+        <div className="container mx-auto px-4 relative z-10 text-white py-16">
           <div className="max-w-4xl mx-auto text-center">
 
             <motion.div {...fadeUp(0)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-sm font-bold mb-10">
