@@ -38,7 +38,7 @@ export default function DigitalProducts() {
   return (
     <div className="min-h-screen bg-[#F8F9FC] pb-20">
       {/* Hero */}
-      <section className="bg-[#0f172a] py-32 pt-40 mb-16 text-center text-white">
+      <section className="bg-[#0f172a] py-16 mb-16 text-center text-white">
         <div className="container mx-auto px-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 mb-6">
             <Download size={16} />
