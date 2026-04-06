@@ -7,7 +7,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-[#F8F9FC] pb-20">
       {/* Hero */}
-      <section className="bg-[#0f172a] py-16 mb-16 overflow-hidden relative text-white">
+      <section className="bg-[#0f172a] pt-6 pb-10 mb-16 overflow-hidden relative text-white">
         <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/20 blur-[100px] rounded-full" />
         <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
           <motion.h1 

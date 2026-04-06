@@ -22,7 +22,7 @@ export default function Services() {
     <div className="min-h-screen pb-24" style={{ background: "#F8FAFC" }}>
 
       {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden pt-20 pb-16 text-white" style={{ background: "#0F172A" }}>
+      <section className="relative overflow-hidden pt-6 pb-10 text-white" style={{ background: "#0F172A" }}>
         <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-[120px] opacity-30" style={{ background: "radial-gradient(circle,#F97316 0%,transparent 70%)" }} />
         <div className="absolute bottom-0 left-1/4 w-64 h-64 rounded-full blur-[100px] opacity-20" style={{ background: "radial-gradient(circle,#6366F1 0%,transparent 70%)" }} />
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />

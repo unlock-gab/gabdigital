@@ -64,7 +64,7 @@ export default function StartProject() {
 
   if (isSubmitted) {
      return (
-        <div className="min-h-screen pt-32 pb-20 flex items-center justify-center bg-[#F8F9FC]">
+        <div className="min-h-screen pt-8 pb-20 flex items-center justify-center bg-[#F8F9FC]">
            <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -86,7 +86,7 @@ export default function StartProject() {
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-[#F8F9FC]">
+    <div className="min-h-screen pt-8 pb-20 bg-[#F8F9FC]">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <motion.h1 

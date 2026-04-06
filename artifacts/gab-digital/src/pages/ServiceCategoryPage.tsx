@@ -29,7 +29,7 @@ export default function ServiceCategoryPage() {
     <div className="min-h-screen pb-24" style={{ background: "#F8FAFC" }}>
 
       {/* ─── Hero ─── */}
-      <section className={`relative overflow-hidden pt-20 pb-16 bg-gradient-to-br ${palette.visualGradient}`}>
+      <section className={`relative overflow-hidden pt-6 pb-10 bg-gradient-to-br ${palette.visualGradient}`}>
         <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-96 h-96 rounded-full blur-[120px] opacity-30" style={{ background: palette.glowColor }} />

@@ -53,7 +53,7 @@ export default function OurWork() {
     <div className="min-h-screen pb-24" style={{ background: "#F8FAFC" }}>
 
       {/* ─────────────────── HERO ─────────────────── */}
-      <section className="relative overflow-hidden pt-20 pb-16 text-white text-center" style={{ background: "#0F172A" }}>
+      <section className="relative overflow-hidden pt-6 pb-10 text-white text-center" style={{ background: "#0F172A" }}>
         <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-[120px] opacity-25 pointer-events-none" style={{ background: "radial-gradient(circle,#F97316,transparent)" }} />
         <div className="absolute bottom-0 left-1/4 w-64 h-64 rounded-full blur-[100px] opacity-15 pointer-events-none" style={{ background: "radial-gradient(circle,#6366F1,transparent)" }} />
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle,#fff 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
