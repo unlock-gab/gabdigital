@@ -1,14 +1,11 @@
 node_modules
 .git
 attached_assets
-artifacts/api-server
 artifacts/mockup-sandbox
 artifacts/*/node_modules
 artifacts/*/dist
 lib/*/node_modules
-lib/db
 lib/api-spec
-lib/api-zod
 scripts
 .local
 .replit
