@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Save } from "lucide-react";
+import { Save, KeyRound, Eye, EyeOff } from "lucide-react";
 
 interface SiteSettings {
   websiteTitle: string;
@@ -53,9 +53,24 @@ function FieldRow({ label, children }: { label: string; children: React.ReactNod
   );
 }
 
+interface CredentialsForm {
+  currentPassword: string;
+  newEmail: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export default function AdminSettings() {
   const { toast } = useToast();
   const [settings, setSettings] = useState<SiteSettings>(defaultSettings);
+  const [creds, setCreds] = useState<CredentialsForm>({
+    currentPassword: "",
+    newEmail: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
 
   function update(key: keyof SiteSettings, value: string) {
     setSettings(prev => ({ ...prev, [key]: value }));
@@ -63,6 +78,39 @@ export default function AdminSettings() {
 
   function handleSave() {
     toast({ title: "Settings saved", description: "Your site settings have been updated." });
+  }
+
+  function handleCredentialsChange() {
+    const stored = localStorage.getItem("admin_credentials");
+    const current = stored
+      ? (JSON.parse(stored) as { email: string; password: string })
+      : { email: "admin@gabdigital.com", password: "admin123" };
+
+    if (creds.currentPassword !== current.password) {
+      toast({ title: "خطأ", description: "كلمة المرور الحالية غير صحيحة.", variant: "destructive" });
+      return;
+    }
+    if (!creds.newEmail && !creds.newPassword) {
+      toast({ title: "خطأ", description: "يرجى إدخال البريد الجديد أو كلمة المرور الجديدة.", variant: "destructive" });
+      return;
+    }
+    if (creds.newPassword && creds.newPassword !== creds.confirmPassword) {
+      toast({ title: "خطأ", description: "كلمة المرور الجديدة غير متطابقة.", variant: "destructive" });
+      return;
+    }
+    if (creds.newPassword && creds.newPassword.length < 6) {
+      toast({ title: "خطأ", description: "كلمة المرور يجب أن تكون 6 أحرف على الأقل.", variant: "destructive" });
+      return;
+    }
+
+    const updated = {
+      email: creds.newEmail || current.email,
+      password: creds.newPassword || current.password,
+    };
+    localStorage.setItem("admin_credentials", JSON.stringify(updated));
+
+    setCreds({ currentPassword: "", newEmail: "", newPassword: "", confirmPassword: "" });
+    toast({ title: "تم التحديث", description: "تم تحديث بيانات الدخول بنجاح." });
   }
 
   return (
@@ -109,6 +157,77 @@ export default function AdminSettings() {
               </div>
               <div className="w-10 h-10 rounded-lg bg-[hsl(222,47%,11%)] border border-slate-700 shrink-0" />
             </div>
+          </div>
+        </SettingsSection>
+
+        <SettingsSection title="تغيير بيانات الدخول">
+          <div className="flex items-center gap-2 mb-2">
+            <KeyRound size={16} className="text-orange-400" />
+            <p className="text-slate-400 text-sm">يمكنك تغيير البريد الإلكتروني أو كلمة المرور. أدخل كلمة المرور الحالية للتحقق.</p>
+          </div>
+          <FieldRow label="كلمة المرور الحالية *">
+            <div className="relative">
+              <Input
+                type={showCurrent ? "text" : "password"}
+                value={creds.currentPassword}
+                onChange={e => setCreds(p => ({ ...p, currentPassword: e.target.value }))}
+                placeholder="أدخل كلمة المرور الحالية"
+                className="bg-slate-800 border-slate-700 text-white pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowCurrent(v => !v)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+              >
+                {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
+          </FieldRow>
+          <FieldRow label="البريد الإلكتروني الجديد (اختياري)">
+            <Input
+              type="email"
+              value={creds.newEmail}
+              onChange={e => setCreds(p => ({ ...p, newEmail: e.target.value }))}
+              placeholder="أدخل البريد الإلكتروني الجديد"
+              className="bg-slate-800 border-slate-700 text-white"
+            />
+          </FieldRow>
+          <FieldRow label="كلمة المرور الجديدة (اختياري)">
+            <div className="relative">
+              <Input
+                type={showNew ? "text" : "password"}
+                value={creds.newPassword}
+                onChange={e => setCreds(p => ({ ...p, newPassword: e.target.value }))}
+                placeholder="6 أحرف على الأقل"
+                className="bg-slate-800 border-slate-700 text-white pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowNew(v => !v)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+              >
+                {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
+          </FieldRow>
+          {creds.newPassword && (
+            <FieldRow label="تأكيد كلمة المرور الجديدة">
+              <Input
+                type="password"
+                value={creds.confirmPassword}
+                onChange={e => setCreds(p => ({ ...p, confirmPassword: e.target.value }))}
+                placeholder="أعد إدخال كلمة المرور الجديدة"
+                className="bg-slate-800 border-slate-700 text-white"
+              />
+            </FieldRow>
+          )}
+          <div className="pt-2">
+            <Button
+              onClick={handleCredentialsChange}
+              className="bg-orange-500 hover:bg-orange-600 text-white gap-2"
+            >
+              <KeyRound size={16} /> تحديث بيانات الدخول
+            </Button>
           </div>
         </SettingsSection>
 

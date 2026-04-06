@@ -14,7 +14,11 @@ export default function AdminLogin() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === "admin@gabdigital.com" && password === "admin123") {
+    const stored = localStorage.getItem("admin_credentials");
+    const credentials = stored
+      ? (JSON.parse(stored) as { email: string; password: string })
+      : { email: "admin@gabdigital.com", password: "admin123" };
+    if (email === credentials.email && password === credentials.password) {
       localStorage.setItem("admin_authenticated", "true");
       setLocation("/admin");
     } else {
