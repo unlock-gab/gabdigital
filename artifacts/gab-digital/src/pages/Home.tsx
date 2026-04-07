@@ -1,6 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "wouter";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { Link } from "wouter";
 import {
   ArrowLeft, Star, TrendingUp, Users, Award,
   Quote, Zap, ShieldCheck, BarChart2, HeartHandshake
@@ -40,19 +39,6 @@ export default function Home() {
     text: t.text,
     rating: t.rating,
   }));
-  const [, setLocation] = useLocation();
-  const [launching, setLaunching] = useState(false);
-
-  function handleStartProject(e: React.MouseEvent) {
-    e.preventDefault();
-    if (launching) return;
-    setLaunching(true);
-    setTimeout(() => {
-      setLaunching(false);
-      setLocation("/start-project");
-    }, 900);
-  }
-
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F8FAFC" }}>
 
@@ -95,57 +81,16 @@ export default function Home() {
             </motion.p>
 
             <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              {/* Rocket launch button */}
-              <div className="relative">
+              <Link href="/services">
                 <button
                   data-testid="btn-hero-start"
-                  onClick={handleStartProject}
-                  disabled={launching}
-                  className="relative flex items-center gap-2 px-8 h-14 text-lg font-bold rounded-full text-white transition-all hover:-translate-y-1 hover:shadow-2xl overflow-hidden"
+                  className="flex items-center gap-2 px-8 h-14 text-lg font-bold rounded-full text-white transition-all hover:-translate-y-1 hover:shadow-2xl"
                   style={{ background: "linear-gradient(135deg,#F97316,#EA580C)", boxShadow: "0 6px 24px rgba(249,115,22,0.4)" }}
                 >
-                  <AnimatePresence mode="wait">
-                    {launching ? (
-                      <motion.span
-                        key="launching"
-                        initial={{ opacity: 1 }}
-                        animate={{ opacity: 1 }}
-                        className="flex items-center gap-2"
-                      >
-                        جاري الإطلاق...
-                      </motion.span>
-                    ) : (
-                      <motion.span key="idle" className="flex items-center gap-2">
-                        ابدأ مشروعك الآن
-                        <ArrowLeft size={20} />
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
+                  ابدأ مشروعك الآن
+                  <ArrowLeft size={20} />
                 </button>
-
-                {/* Rocket animation overlay */}
-                <AnimatePresence>
-                  {launching && (
-                    <motion.div
-                      key="rocket"
-                      initial={{ y: 0, x: 0, opacity: 1, scale: 1 }}
-                      animate={{ y: -220, x: 30, opacity: 0, scale: 0.4 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.85, ease: [0.2, 0, 0.2, 1] }}
-                      className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 pointer-events-none z-50 flex flex-col items-center"
-                    >
-                      <span className="text-4xl select-none" style={{ filter: "drop-shadow(0 0 12px #F97316)" }}>🚀</span>
-                      <motion.div
-                        initial={{ scaleY: 0.3, opacity: 0.8 }}
-                        animate={{ scaleY: 1.5, opacity: 0 }}
-                        transition={{ duration: 0.7, ease: "easeOut" }}
-                        className="w-1.5 rounded-full mt-0.5"
-                        style={{ height: 32, background: "linear-gradient(to bottom, #F97316, transparent)" }}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              </Link>
               <Link href="/our-work">
                 <button
                   data-testid="btn-hero-work"
